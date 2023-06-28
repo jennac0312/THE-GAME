@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- landing screen (home) -->
+    <div class="landingScreen setUpScreen hidden">
+        <div class="content">
+            <h2 class="">PRESENTING</h2>
+            <h1 class="title">
+                <div class="top">
+                    <span class="red">C</span>
+                    <span class="orange">O</span>
+                    <span class="yellow">L</span>
+                    <span class="blue">O</span>
+                    <span class="green">R</span>
+                </div>
+                <br>
+                <div class="bottom">
+                    <span class="purple">B</span>
+                    <span class="cyan">U</span>
+                    <span class="salmon">S</span>
+                    <span class="lime">T</span>
+                    <span class="gold">E</span>
+                    <span class="magenta">R</span>
+                </div>
+            </h1>
+            <!--  add steps effect -->
+            <p class="italic">the brain game</p>
+            <div class="buttons homeButtons hidden">
+                <button class="start">START</button>
+                <button class="directions">DIRECTIONS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- directions screen -->
+    <!-- in progress -->
+    <div class="directionsScreen setUpScreen hidden">
+        <h1>DIRECTIONS</h1>
+        <p>A brain teaser, but make it 
+            <br>
+            <span class="cyan">C</span>
+            <span class="salmon">O</span>
+            <span class="gold">L</span>
+            <span class="magenta">O</span>
+            <span class="salmon">R</span>
+            <span class="yellow">F</span>
+            <span class="red">U</span>
+            <span class="lime">L</span>
+            <!-- <span class="yellow">!</span> -->
+        </p>
+        <p>a
+            <br>
+            <span class="cyan">c</span>
+            <span class="salmon">o</span>
+            <span class="gold">l</span>
+            <span class="magenta">o</span>
+            <span class="salmon">r</span>
+            <span class="yellow">f</span>
+            <span class="red">u</span>
+            <span class="lime">l</span>
+            <br>
+            <!-- <span class="yellow">!</span> --> brain teaser
+        </p>
+
+
+        <button class="start">Ready?</button>
+    </div>
+
+    <!-- mode screen -->
+    <!-- in progress -->
+    <div class="modeScreen hidden">
+
+
+        <div class="content">
+            <h1>CHOOSE YOUR MODE</h1>
+            <div class="buttons">
+                <button class="easy">EASY</button>
+                <button class="hard">HARD</button>
+            </div>
+            <button class="directions">DIRECTIONS</button>
+        </div>
+
+    </div>
+
+
+    <!-- game board -->
+    <div class="gameBoard ">
+        <p class="">mode:&nbsp; <span class="mode">easy</span></p>
+        <h1 class="gameColor blue">YELLOW</h1>
+        <!-- like this orrrrr -->
+        <!-- <div class="choices">
+            <div class="choice c1">1</div>
+            <div class="choice c2">2</div>
+            <div class="choice c3">3</div>
+            <div class="choice c4">4 blue</div>
+        </div> -->
+        <!-- orrrrr this -->
+        <div class="choices">
+            <button class="choice c1">1 red</button>
+            <button class="choice c2">2 yellow</button>
+            <button class="choice c3">3 green</button>
+            <button class="choice c4">4 blue</button>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>

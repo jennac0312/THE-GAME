@@ -1,0 +1,348 @@
+
+body{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Agdasima';
+    width: 390px;
+    height: 844px;
+    /* background-color: black; */
+    /* border: 2px solid yellow; */
+    color: moccasin;
+    text-align: center;
+}
+
+/* resetting */
+body * {
+    margin: 0;
+    padding: 0;
+}
+
+body > *{
+    background-color: black;
+    height: 100%;
+}
+
+
+/* landing screen */
+.landingScreen{
+    /* border: 2px solid red; */
+    width: 390px;
+    height: 844px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: moccasin
+}
+
+.landingScreen > *{
+    margin-bottom: 10px;
+}
+
+.landingScreen .content{
+    /* border: 2px solid yellow; */
+    height: 345px;
+    width: 100%;
+    position: relative;
+}
+
+h2{
+    /* color: mintcream; */
+    letter-spacing: 15px;
+    padding-bottom: 10px;;
+    /* border-bottom: 2px dashed moccasin; */
+}
+
+.title{
+    /* border: 2px solid red; */
+    margin-top: 20px;
+    /* letter-spacing: -5px; */
+}
+
+.title span{
+    font-size: 2em;
+    /* font-weight: bold; */
+    animation: flashing 10s steps(10000, start) forwards;
+}
+
+.top, .bottom{
+    /* border: 2px solid yellow; */
+    text-align: center;
+    margin: 0 !important;
+}
+
+.bottom{
+    margin-top: -30px !important;
+}
+
+.content p{
+    /* border: 2px solid red; */
+    color: black;
+    opacity: .6;
+    /* animation: flashing 5s; */
+}
+
+.landingScreen .buttons{
+    /* border: 2px solid grey; */
+    height: 120px;
+    width: 100%;
+    /* display: flex; */
+    /* justify-content: space-evenly; */
+    margin-top: 60px;
+}
+
+.landingScreen button.start {
+    margin-right: 40px;
+}
+
+.setUpScreen button{
+    width: 140px;
+    height: 40px;
+    /* background-color: rgba(245, 255, 250, .5); */
+    background-color: moccasin;
+    /* color: rgb(39, 39, 39); */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    /* font-size: .9em; */
+    font-weight: bold;
+    letter-spacing: 2px;
+    opacity: .8;
+    align-self: flex-end;
+
+    /* animation: flashing 1s steps(2,start) infinite; */
+}
+
+.setUpScreen button:hover{
+    cursor: pointer;
+    /* background-color: mintcream; */
+    background-color: rgb(168, 134, 74);
+    /* color: rgba(0, 0, 0, .5) */
+    color: mintcream
+
+    /* animation-play-state: paused; */
+}
+
+/* ------------ DIRECTIONS PAGE ---- */
+.directionsScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    /* height: 100%; */
+}
+
+.directionsScreen h1{
+    letter-spacing: 6px;
+    /* text-decoration: .25px wavy overline underline;
+    text-decoration-color: brown; */
+    /* border: 2px solid red; */
+    width: 100%;
+    border-top: 2px dashed moccasin;
+    border-bottom: 2px dashed moccasin;
+    border-width: 100%;
+}
+
+.directionsScreen >* {
+    margin: 20px 0;
+}
+.directionsScreen p {
+    letter-spacing: 2px;
+    border: 2px solid red;
+    width: 80%;
+}
+.directionsScreen p span {
+    font-weight: 700;
+    font-style: italic;
+}
+/* -----------------MODE --------------------- */
+
+.modeScreen{
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modeScreen .content{
+    border: 2px solid yellow;
+    height: 400px;
+}
+.modeScreen button{
+    width: 140px;
+    height: 40px;
+    background-color: moccasin;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    opacity: .8;
+    align-self: flex-end;
+}
+
+.modeScreen button:hover{
+    cursor: pointer;
+    /* color: mintcream */
+
+    /* animation-play-state: paused; */
+}
+.modeScreen .buttons{
+    border: 2px solid red;
+}
+
+/* -------------------- GAME --------------- */
+.gameBoard{
+    /* border: 2px solid red; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.gameBoard p{
+    /* border: 2px solid red; */
+    /* height: 100%; */
+    margin-top: -220px;
+    margin-bottom: 210px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: .4;
+}
+.gameColor{
+    border: 2px solid white;
+    margin-bottom: 10px;
+}
+
+.gameBoard button{
+
+}
+
+.choices{
+    /* border: 2px solid orange; */
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    /* font-weight: bold; */
+}
+.choice{
+    /* border: 1.5px solid yellowgreen; */
+    width: 150px;
+    height: 100px;
+    margin: 10px;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.c1{
+    background-color: red;
+}
+.c2{
+    background-color: yellow;
+}
+.c3{
+    background-color: green;
+}
+.c4{
+    background-color: blue;
+}
+
+
+/* hidden */
+.hidden{
+    display: none;
+}
+/* italic */
+.italic{
+    font-style: italic;
+}
+
+
+
+/* colors */
+.red{
+    color: red
+}
+
+.orange{
+    color: darkorange
+}
+
+.yellow{
+    color: yellow
+}
+
+.blue{
+    color: blue
+}
+
+.green{
+    color: green
+}
+
+.purple{
+    color: purple;
+}
+
+.indigo{
+    color: indigo
+}
+
+.violet{
+    color: violet
+}
+
+.magenta{
+    color: magenta;
+}
+
+.lime{
+    color: lime;
+}
+
+.cyan{
+    color: cyan;
+}
+
+.gold{
+    color: goldenrod;
+}
+
+.grey{
+    color: grey;
+}
+
+.salmon{
+    color: salmon;
+}
+.white{
+    color: white;
+}
+
+
+
+
+
+/* keyframes */
+
+@keyframes flashing {
+    0%{
+        opacity: 0;
+    }
+    
+    100%{
+        opacity: 1;
+    }
+}
+
+
+.flashing{
+    animation: flashing 1s infinite;
+}
