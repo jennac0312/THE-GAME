@@ -10,16 +10,19 @@ const hpParagraph = document.querySelector('.landingScreen p')
 const hpBContainer = document.querySelector('.homeButtons')
 const buttons = document.querySelectorAll('button')
 
-
 // game page variables
 const gpMode = document.querySelector('.mode')
 const gpColor = document.querySelector('.gameColor')
+// timer
+const minutes = document.querySelector('.minutes')
+const seconds = document.querySelector('.seconds')
+
 
 // object to track screen location
 const GAME_STATS = {
-    start : false
+    start : false,
+    timer : {}
 }
-
 
 
 // toggle screens for buttons
@@ -27,13 +30,7 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
         if(!GAME_STATS.start){
-            // hide home page
-            homePage.classList.add('hidden')
-            // hide other screens ( game and directions and modes )
-                // make this a looop... DRY ? or bad bc nested
-            modePage.classList.add('hidden')
-            gamePage.classList.add('hidden')
-            directionsPage.classList.add('hidden')
+          hideAllScreensExcept(gamePage)
         }
 
         if(button.classList.value.includes('start')){
@@ -85,6 +82,7 @@ setTimeout(() => {
 const setGameStats = (mode) => {
     GAME_STATS.mode = mode
     GAME_STATS.start = true
+    GAME_STATS.timer = startTimer()
     console.log(GAME_STATS)
 
     setMode()
@@ -93,4 +91,74 @@ const setGameStats = (mode) => {
 // set mode on game screen
 const setMode = () => {
     gpMode.innerHTML = GAME_STATS.mode
+}
+
+// hide all screens
+const hideAllScreens = () => {
+      homePage.classList.add('hidden')
+      modePage.classList.add('hidden')
+      gamePage.classList.add('hidden')
+      directionsPage.classList.add('hidden')
+}
+
+// hide all screens except
+const hideAllScreensExcept = (except) => {
+    hideAllScreens()
+    if(except) except.classList.remove('hidden')
+}
+
+
+// timer
+const startTimer = () => {
+    // startMinutes()
+    // startSeconds()
+    // mins = setInterval(startMinutes(), 10000);
+    // seconds.innerHTML = startSeconds()
+    let mins = 0
+    return {mins: mins, seconds: 0}
+}
+
+const startMinutes = () => {
+    mins++
+    return mins
+}
+
+// const startSeconds = () => {
+//     let secs = 0o0
+//     setInterval(() => {
+//         secs++
+//     }, 1000)
+
+//     return secs
+// }
+
+
+
+// stroop effect
+
+
+
+const colors = ['red', 'orange', 'yellow', 'green', 'purple', 'pink', 'blue', 'grey', 'brown', 'white']
+
+let combinations = []
+
+const createColorCombos = () => {
+
+    colors.forEach((color) => {
+        let combo = {}
+        combo.name = color
+        combo.style =  colors[getRandomIntInclusive(0, colors.length - 1)]
+        combinations.push(combo)
+    })
+
+    console.log(combinations)
+}
+createColorCombos()
+
+
+// random inclusive
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }

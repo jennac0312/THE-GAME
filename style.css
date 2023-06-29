@@ -34,6 +34,7 @@ body > *{
     justify-content: center;
     align-items: center;
     background-color: black;
+    background-color: #202124;
     color: moccasin
 }
 
@@ -80,6 +81,7 @@ h2{
 .content p{
     /* border: 2px solid red; */
     color: black;
+    color: #202124;
     opacity: .6;
     /* animation: flashing 5s; */
 }
@@ -201,21 +203,41 @@ h2{
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: #202124 !important;
+    /* background-color: rgba(0, 0, 0, .8); */
+}
+
+.details{
+    border: 2px solid green;
 }
 .gameBoard p{
     /* border: 2px solid red; */
     /* height: 100%; */
-    margin-top: -220px;
-    margin-bottom: 210px;
-    display: flex;
+    /* margin-top: -220px;
+    margin-bottom: 210px; */
+    /* display: flex;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: center; */
     opacity: .4;
 }
+.timer{
+    border: 2px solid red;
+    /* margin-top: 10px !important; */
+}
+
+.questionBox{
+    /* border: 2px solid yellow; */
+    margin-bottom: 240px;
+    /* align-content: center;
+    justify-self: center; */
+    /* justify-items: center; */
+    /* background-color: rgba(255, 255, 255,.2) !important; */
+}
 .gameColor{
-    border: 2px solid white;
+    /* border: 2px solid white; */
     margin-bottom: 10px;
+    /* background-color: white; */
 }
 
 .gameBoard button{
