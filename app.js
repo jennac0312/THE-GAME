@@ -3,6 +3,7 @@ const homePage = document.querySelector('.landingScreen')
 const directionsPage = document.querySelector('.directionsScreen')
 const modePage = document.querySelector('.modeScreen')
 const gamePage = document.querySelector('.gameBoard')
+const endScreen = document.querySelector('.endScreen')
 
 // home page variables
 const gameTitle = document.querySelector('.title')
@@ -283,6 +284,7 @@ const incremenetGameStats = (correct) => {
 
 // load questions one by one... after answer is clicked
 const loadNextQuestions = (current) => {  
+    checkForEnd()
     clearStyles() 
     current = questions[current]
 
@@ -311,14 +313,54 @@ const clearStyles = () => {
     // clear
     gpButtons[i].classList.value = ''
     // add back
-
     gpButtons[i].classList.add(GP_BUTTON_CLASSES[i])
     gpButtons[i].classList.add('choice')
    }
    console.log(gpButtons)
 }
 
+// check for end
+const checkForEnd = () => {
+    GAME_STATS.answered === numberOfQuestions ? endGame(): console.log(`%cGAME ON`, 'color: lime')
+}
 
+
+// end game
+const endGame = () => {
+    console.log(`%cGAME OVER`, 'color: red; font-size: 15px')
+    // hide game screen
+    gamePage.classList.add('hidden')
+    // go to game over screen
+    endScreen.classList.remove('hidden')
+
+}
+
+localStorage.setItem('playerstats1', JSON.stringify(GAME_STATS))
+
+// set local storage
+const setLocalStorage = (key, value) => {
+
+    localStorage.setItem(key, value)
+
+    let user = {
+        name: 'name',
+        totalQuestions : GAME_STATS.totalQuestions,
+        correct: GAME_STATS.correct,
+        incorrect: GAME_STATS.incorrect,
+        mode: GAME_STATS.mode
+    }
+}
+
+// store game stats
+const storeGameStats = () => {
+    setLocalStorage('name', '')
+    setLocalStorage('totalQuestions', GAME_STATS.totalQuestions)
+    setLocalStorage('correct', GAME_STATS.correct)
+    setLocalStorage('incorrect', GAME_STATS.incorrect)
+    setLocalStorage('mode', GAME_STATS.mode)
+}
+
+storeGameStats()
 
 
 
