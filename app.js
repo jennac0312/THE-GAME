@@ -149,6 +149,7 @@ function getRandomIntInclusive(min, max) {
 
 
 const colors = ['red', 'orange', 'yellow', 'green', 'purple', 'pink', 'blue', 'grey', 'brown', 'white']
+const colorsIndexedLength = colors.length - 1
 
 let combinations = []
 let questions = []
@@ -169,7 +170,55 @@ const createColorCombos = (howManyTimes) => {
 createColorCombos(1)
 
 
+// push combinations to color choices
+const pushCombinationsToChoices = () => {
 
+    combinations.forEach((combo) => {
+        let choices = []
+        console.log(combo)
+
+        choices.push(combo.name)
+        choices.push(combo.style)
+
+        colorChoices.push(choices)
+    })
+    console.log(colorChoices)
+}
+pushCombinationsToChoices()
+
+// get 2 random colors added to options
+const addMoreChoices = () => {
+    colorChoices.forEach((choice) => {
+        // console.log(choice)
+
+        choice.push( colors[getRandomIntInclusive(0, colorsIndexedLength)] )
+        choice.push( colors[getRandomIntInclusive(0, colorsIndexedLength)] )
+        // console.log(choice)
+    })
+    // console.log(colorChoices)
+}
+addMoreChoices()
+
+// make sure choices are all unique
+const checkForRepeats = () => {
+    colorChoices.forEach((choice) => {
+        let unique = new Set( choice )
+        // omg how did i forget SET RETURNS AN OBJECT !!!!!!!!!! grrr my other code prob worked lol
+        unique = Array.from(unique)
+    console.log(`unique`, unique)
+        console.log(choice)
+
+        if(choice.length !== unique.length){
+            console.log('REPEATS UH OH')
+        } else{
+            console.log(`whew, no repeats`)
+        }
+    })
+}
+checkForRepeats()
+
+
+// replace repeats with uniques
 
 
 
