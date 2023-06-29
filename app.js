@@ -140,13 +140,19 @@ const startMinutes = () => {
 //     return secs
 // }
 
-
+// random inclusive
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 
 const colors = ['red', 'orange', 'yellow', 'green', 'purple', 'pink', 'blue', 'grey', 'brown', 'white']
 
 let combinations = []
 let questions = []
+let colorChoices =  []
 
 const createColorCombos = (howManyTimes) => {
 
@@ -158,39 +164,119 @@ const createColorCombos = (howManyTimes) => {
             combinations.push(combo)
         })
     }
-
     console.log(combinations)
 }
 createColorCombos(1)
 
 
-// random inclusive
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+
+
+
+
+
+
+
+
+
+// loop the pushes until length 4 is reached
+// const pushUniqueOptions = (uniqueOptions) => {
+//     for(let i = uniqueOptions.length; i <= 3; i++){
+//         uniqueOptions.push(colors[getRandomIntInclusive(0, colors.length-1)])
+//     }
+//     console.log(`OPTIONS AFTER LOOP: ${uniqueOptions}`)
+//     console.log(`%cLENGTH AFTER LOOP: ${uniqueOptions.length}`, 'color: red')
+//     uniqueOptions = new Set(uniqueOptions)
+// }
+
+// create unique options for color combinations
+// const uniqueColorOptions = () => {
+//     combinations.forEach((combo) => {
+//         let uniqueOptions = []
+//         console.log(combo)
+//         uniqueOptions.push(combo.name)
+//         uniqueOptions.push(combo.style)
+//         console.log(`starting options: ${uniqueOptions}`)
+
+//         pushUniqueOptions(uniqueOptions)
+//         // loop the pushes until length 4 is reached
+//         // const pushUniqueOptions = (uniqueOptions) => {
+//         //     for(let i = uniqueOptions.length; i <= 3; i++){
+//         //         uniqueOptions.push(colors[getRandomIntInclusive(0, colors.length-1)])
+//         //     }
+//         //     console.log(`OPTIONS AFTER LOOP: ${uniqueOptions}`)
+//         //     console.log(`%cLENGTH AFTER LOOP: ${uniqueOptions.length}`, 'color: red')
+//         //     uniqueOptions = new Set(uniqueOptions)
+//         // }
+//         colorChoices.push(uniqueOptions)
+//     })
+//     console.log(colorChoices)
+
+//     colorChoices.forEach((color) => {
+//         console.log('not unique yet: ',color)
+
+//         let uniqueColors = []
+//         uniqueColors = new Set(color)
+//         console.log(`unique colors`, uniqueColors)
+        
+//         // while(uniqueColors.length < 4){
+//         //     console.log(`while loop entered`)
+//         //     pushUniqueOptions(color)
+//         // }
+
+//         if(uniqueColors.length < 4){
+//             pushUniqueOptions(uniqueColors)
+//         }
+//         console.log(`unique options length after loop:`, color)
+//     })
+// }
+// uniqueColorOptions()
+
+
 
 
 // create questions
-const createQuestions = () => {
+// const createQuestions = () => {
 
-    combinations.forEach((combo) => {
-        let question = {
-            colors: []
-        }
-        question.gameColor = combo.name,
-        question.style = combo.style,
-        question.colors.push(combo.style)
-        question.colors.push(combo.name)
+    // combinations.forEach((combo) => {
+    //     let question = {
+    //         colors: []   
+    //     }
+    //     question.gameColor = combo.name,
+    //     question.style = combo.style,
+    //     question.colors.push({option : combo.style , answer : false })
+    //     question.colors.push({option : combo.name, answer : true})
 
-        // adding 2 random colors  .... have to make sure colors dont match
-        question.colors.push(colors[getRandomIntInclusive(0, colors.length - 1)])
-        question.colors.push(colors[getRandomIntInclusive(0, colors.length - 1)])
+    //     // adding 2 random colors  .... have to make sure colors dont match
+    //     question.colors.push({option: colors[getRandomIntInclusive(0, colors.length - 1)], answer: false})
+    //     question.colors.push({option: colors[getRandomIntInclusive(0, colors.length - 1)], answer: false})
 
-        questions.push(question)
-    })
+    //     questions.push(question)
+    // })
+    // console.log(questions)
+// }
+// createQuestions()
 
-    console.log(questions)
-}
-createQuestions()
+
+// make sure questions.options dont match ... 
+// const checkForRepeats = () => {
+//      //... no just no. nested loop and bad all around
+//         let uniqueColors
+//         questions.forEach((question) => {
+//             let colors = []
+//             // console.log(question.colors.option)
+//             // colors.push(question.colors.option)
+//             question.colors.forEach((color) => {
+//                 colors.push(color.option)
+//             })
+//             uniqueColors = new Set( colors )
+//             console.log(`original colors: `,colors)
+//             console.log(`unique colors:`, uniqueColors)
+            
+//                 if(uniqueColors.length < 4){
+//                     uniqueColors.push(colors[getRandomIntInclusive(0, colors.length-1)])
+//                 }
+//                 console.log(`length 4`, uniqueColors)
+//         })
+    
+// }
+// checkForRepeats()
