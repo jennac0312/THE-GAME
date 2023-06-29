@@ -19,6 +19,9 @@ const seconds = document.querySelector('.seconds')
 const gpColor = document.querySelector('.gameColor')
 const gpChoices = document.querySelectorAll('.choice')
 const gpButtons = gpChoices
+// questionBox classes to keep
+const GP_COLOR_CLASS = `gameColor`
+const GP_BUTTON_CLASSES = ["c1", "c2", "c3", "c4"]
 
 
 
@@ -129,7 +132,7 @@ const startGame = () => {
     createAnswerSets(numberOfQuestions)
     console.log(useableSets)
     configureQuestions()
-    loadFirstQuestion()
+    loadNextQuestions(GAME_STATS.answered)
 }
 
 // timer ... needs work 
@@ -241,6 +244,7 @@ gpButtons.forEach((button) => {
         // console.log(button)
         checkAnswer(button, GAME_STATS.answered)
         // incrementAnswered()
+        loadNextQuestions(GAME_STATS.answered)
     })
 })
 
@@ -262,20 +266,57 @@ const checkAnswer = (selected, current) => {
     selected = selected.slice(2)
 
     console.log(selected)
-
     // get right answer from current
     let correctAnswer = questions[current].name
     console.log(`%ccorrect answer : ${correctAnswer}`, 'color:' + correctAnswer)
 
+    selected === correctAnswer ? incremenetGameStats(true) : incremenetGameStats(false)
 }
 
+// incrememnt gameStats
+const incremenetGameStats = (correct) => {
+    incrementAnswered()
+    correct ? GAME_STATS.correct++ : GAME_STATS.incorrect++
+
+    console.log(GAME_STATS)
+}
 
 // load questions one by one... after answer is clicked
-const loadNextQuestions = () => {   
+const loadNextQuestions = (current) => {  
+    clearStyles() 
+    current = questions[current]
 
+    // plug in name and color(style)
+    gpColor.innerHTML = current.name.toUpperCase()
+    gpColor.classList.add(current.style)
+
+    // change options background color
+
+    for(let i = 0; i < gpChoices.length; i ++){
+        gpChoices[i].classList.add(`bg${current.colors[i]}`)
+    }
 }
 
+// before loading next question... remove previous colors from dom
 
+const clearStyles = () => {
+    // clear classes
+   gpColor.classList.value = ''
+
+    // add important class back
+    gpColor.classList.add(GP_COLOR_CLASS)
+   console.log(gpColor)
+
+   for(let i = 0; i < gpButtons.length; i++){
+    // clear
+    gpButtons[i].classList.value = ''
+    // add back
+
+    gpButtons[i].classList.add(GP_BUTTON_CLASSES[i])
+    gpButtons[i].classList.add('choice')
+   }
+   console.log(gpButtons)
+}
 
 
 
