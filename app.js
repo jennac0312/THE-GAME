@@ -3,7 +3,7 @@ const homePage = document.querySelector('.landingScreen')
 const directionsPage = document.querySelector('.directionsScreen')
 const modePage = document.querySelector('.modeScreen')
 const gamePage = document.querySelector('.gameBoard')
-const endScreen = document.querySelector('.endScreen')
+const endScreenDefault = document.querySelector('.endScreenDefault')
 
 // home page variables
 const gameTitle = document.querySelector('.title')
@@ -25,11 +25,17 @@ const GP_COLOR_CLASS = `gameColor`
 const GP_BUTTON_CLASSES = ["c1", "c2", "c3", "c4"]
 
 
+// game over screen variables
+
+
+
+
 
 const numberOfQuestions = 10
 
 // object to track screen location
 const GAME_STATS = {
+    username: 'PLAYER1',
     start : false,
     timer : {},
     correct: 0,
@@ -97,7 +103,7 @@ setTimeout(() => {
 setTimeout(() => {
     hpParagraph.style.color = `moccasin`
     // hpParagraph.setAttribute('style', 'animation: flashing 2s forwards')
-}, 13500)
+}, 11500)
 
 
 // get game stats
@@ -313,7 +319,7 @@ const clearStyles = () => {
     // clear
     gpButtons[i].classList.value = ''
     // add back
-    gpButtons[i].classList.add(GP_BUTTON_CLASSES[i])
+    // gpButtons[i].classList.add(GP_BUTTON_CLASSES[i]) //dont actually need these
     gpButtons[i].classList.add('choice')
    }
    console.log(gpButtons)
@@ -331,37 +337,37 @@ const endGame = () => {
     // hide game screen
     gamePage.classList.add('hidden')
     // go to game over screen
-    endScreen.classList.remove('hidden')
+    endScreenDefault.classList.remove('hidden')
 
 }
 
-localStorage.setItem('playerstats1', JSON.stringify(GAME_STATS))
+const username = document.querySelector('#username')
 
-// set local storage
-const setLocalStorage = (key, value) => {
-
-    localStorage.setItem(key, value)
-
-    let user = {
-        name: 'name',
-        totalQuestions : GAME_STATS.totalQuestions,
-        correct: GAME_STATS.correct,
-        incorrect: GAME_STATS.incorrect,
-        mode: GAME_STATS.mode
-    }
+const logUser = (event) => {
+    console.log(event)
+    event.preventDefault() //prevent reload
+    // console.log(event.target['username'].value)
+    console.log(username.value)
 }
 
-// store game stats
-const storeGameStats = () => {
-    setLocalStorage('name', '')
-    setLocalStorage('totalQuestions', GAME_STATS.totalQuestions)
-    setLocalStorage('correct', GAME_STATS.correct)
-    setLocalStorage('incorrect', GAME_STATS.incorrect)
-    setLocalStorage('mode', GAME_STATS.mode)
+
+
+
+
+
+// store game stats in local storage
+const setLocalStorage = () => {
+    //remove start and username ?? from gamestats before storing
+    // deep copy so that delete doesnt affect original gamestats
+    let stats = Object.assign({}, GAME_STATS)
+
+    delete stats.username
+    delete stats.start
+
+    localStorage.setItem(GAME_STATS.username, JSON.stringify(stats))
 }
 
-storeGameStats()
-
+setLocalStorage()
 
 
 

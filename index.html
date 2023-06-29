@@ -15,7 +15,7 @@
 <body>
     
     <!-- landing screen (home) -->
-    <div class="landingScreen setUpScreen hidden">
+    <div class="landingScreen setUpScreen ">
         <div class="content">
             <h2 class="">PRESENTING</h2>
             <h1 class="title">
@@ -81,7 +81,7 @@
 
     <!-- mode screen -->
     <!-- in progress -->
-    <div class="modeScreen ">
+    <div class="modeScreen hidden">
 
 
         <div class="content">
@@ -122,10 +122,32 @@
     </div>
 
     <!-- end screen -->
-    <div class="endScreen hidden">
+    <div class="endScreenDefault hidden">
         <h1>GAME OVER</h1>
+
+        <p>enter username to view rank</p>
+        <form action="" onsubmit="logUser(event)">
+            <input type="text" placeholder="username" id="username" onsubmit="" name="username">
+            <input type="submit" onsubmit="">
+        </form>
+
+        <button class="">PLAY AGAIN</button>
+        <!-- <button class="viewRank">VIEW RANK</button> -->
     </div>
 
+    <!-- end screen congratulations -->
+    <div class="endScreenCongratulations hidden">
+        <h1>CONGRATULATIONS!</h1>
+        <h2>you recieved a <span class="perfect">PERFECT</span> score!</h2>
+
+        <h3>YOUR STATS :</h3>
+        <div class="stats">
+            <p class="">QUESTIONS: <span class="questions">20</span></p>
+            <p class="">TIME: <span class="time">0</span></p>
+            <p class="">CORRECT: <span class="correct">0</span></p>
+            <p class="">INCORRECT:<span class="incorrect">0</span></p>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
