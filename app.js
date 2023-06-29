@@ -12,10 +12,14 @@ const buttons = document.querySelectorAll('button')
 
 // game page variables
 const gpMode = document.querySelector('.mode')
-const gpColor = document.querySelector('.gameColor')
 // timer
 const minutes = document.querySelector('.minutes')
 const seconds = document.querySelector('.seconds')
+// questionBox variables
+const gpColor = document.querySelector('.gameColor')
+const gpChoices = document.querySelectorAll('.choice')
+
+
 
 
 // object to track screen location
@@ -31,6 +35,10 @@ buttons.forEach((button) => {
 
         if(!GAME_STATS.start){
           hideAllScreensExcept(gamePage)
+        }
+
+        if(GAME_STATS.start){
+            //what to do when game is going
         }
 
         if(button.classList.value.includes('start')){
@@ -108,7 +116,7 @@ const hideAllScreensExcept = (except) => {
 }
 
 
-// timer
+// timer ... needs work 
 const startTimer = () => {
     // startMinutes()
     // startSeconds()
@@ -134,26 +142,26 @@ const startMinutes = () => {
 
 
 
-// stroop effect
-
-
 
 const colors = ['red', 'orange', 'yellow', 'green', 'purple', 'pink', 'blue', 'grey', 'brown', 'white']
 
 let combinations = []
+let questions = []
 
-const createColorCombos = () => {
+const createColorCombos = (howManyTimes) => {
 
-    colors.forEach((color) => {
-        let combo = {}
-        combo.name = color
-        combo.style =  colors[getRandomIntInclusive(0, colors.length - 1)]
-        combinations.push(combo)
-    })
+    for(let i = 1; i <= howManyTimes; i++){
+        colors.forEach((color) => {
+            let combo = {}
+            combo.name = color
+            combo.style =  colors[getRandomIntInclusive(0, colors.length - 1)]
+            combinations.push(combo)
+        })
+    }
 
     console.log(combinations)
 }
-createColorCombos()
+createColorCombos(1)
 
 
 // random inclusive
@@ -162,3 +170,27 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
+// create questions
+const createQuestions = () => {
+
+    combinations.forEach((combo) => {
+        let question = {
+            colors: []
+        }
+        question.gameColor = combo.name,
+        question.style = combo.style,
+        question.colors.push(combo.style)
+        question.colors.push(combo.name)
+
+        // adding 2 random colors  .... have to make sure colors dont match
+        question.colors.push(colors[getRandomIntInclusive(0, colors.length - 1)])
+        question.colors.push(colors[getRandomIntInclusive(0, colors.length - 1)])
+
+        questions.push(question)
+    })
+
+    console.log(questions)
+}
+createQuestions()
