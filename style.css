@@ -347,11 +347,41 @@ h2{
 .white{
     color: white;
 }
+.brown{
+    color: rgb(128, 75, 37)
+}
 
-
-
-
-
+/* ------------ BACKGROUND COLORS */
+.bgred{
+    background-color: red;
+}
+.bgorange{
+    background-color: orange;
+}
+.bgyellow{
+    background-color: yellow;
+}
+.bggreen{
+    background-color: green;
+}
+.bgpurple{
+    background-color: purple;
+}
+.bgpink{
+    background-color: pink;
+}
+.bgblue{
+    background-color: blue;
+}
+.bggrey{
+    background-color: grey;
+}
+.bgbrown{
+    background-color: saddlebrown;
+}
+.bgwhite{
+    background-color: white;
+}
 /* keyframes */
 
 @keyframes flashing {

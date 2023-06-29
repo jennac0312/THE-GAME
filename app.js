@@ -18,14 +18,20 @@ const seconds = document.querySelector('.seconds')
 // questionBox variables
 const gpColor = document.querySelector('.gameColor')
 const gpChoices = document.querySelectorAll('.choice')
+const gpButtons = gpChoices
 
 
 
+const numberOfQuestions = 10
 
 // object to track screen location
 const GAME_STATS = {
     start : false,
-    timer : {}
+    timer : {},
+    correct: 0,
+    incorrect: 0,
+    answered: 0,
+    totalQuestions: numberOfQuestions
 }
 
 
@@ -59,6 +65,8 @@ buttons.forEach((button) => {
             setGameStats('easy')
             // show game
             gamePage.classList.remove('hidden')
+            // start game
+            startGame()
         }
         if(button.classList.contains('hard')){
             button.style.backgroundColor = 'rgb(168, 134, 74);'
@@ -66,6 +74,8 @@ buttons.forEach((button) => {
             setGameStats('hard')
             // show game
             gamePage.classList.remove('hidden')
+            // start game
+            startGame()
         }
     })
 })
@@ -115,6 +125,12 @@ const hideAllScreensExcept = (except) => {
     if(except) except.classList.remove('hidden')
 }
 
+const startGame = () => {
+    createAnswerSets(numberOfQuestions)
+    console.log(useableSets)
+    configureQuestions()
+    loadFirstQuestion()
+}
 
 // timer ... needs work 
 const startTimer = () => {
@@ -154,25 +170,110 @@ const colorsIndexedLength = colors.length - 1
 let combinations = []
 let questions = []
 let colorChoices =  []
-let useableChoices = []
 
-const createColorCombos = (howManyTimes) => {
+let answerSets = []
+let useableSets = []
 
-    for(let i = 1; i <= howManyTimes; i++){
-        colors.forEach((color) => {
-            let combo = {}
-            combo.name = color
-            combo.style =  colors[getRandomIntInclusive(0, colors.length - 1)]
-            combinations.push(combo)
-        })
+// create answer selection first... push useable ones 
+const createAnswerSets = (howManySets) => {
+
+    for(let i = 1; i <= howManySets; i++){
+        let set = []
+        set.push(colors[getRandomIntInclusive(0, colorsIndexedLength)])
+        set.push(colors[getRandomIntInclusive(0, colorsIndexedLength)])
+        set.push(colors[getRandomIntInclusive(0, colorsIndexedLength)])
+        set.push(colors[getRandomIntInclusive(0, colorsIndexedLength)])
+        
+        let uniqueSet = Array.from( new Set (set) )
+        pushUseableSets(uniqueSet)
     }
-    console.log(combinations)
+    // console.log(useableSets)
 }
-createColorCombos(1)
+
+// pushe useable stes
+const pushUseableSets = (set) => {
+    if(set.length === 4){
+        useableSets.push(set)
+        // console.log(`og useable set:`, useableSets)
+    } else if(useableSets.length !== numberOfQuestions){
+        // loops until numberOfQuestions goal is met
+        console.log(`adding 1 more set`)
+        createAnswerSets(1)
+    }
+}
+
+// configure questions from each useable set
+const configureQuestions = () => {
+    useableSets.forEach((set) => {
+        let question = {}
+        // assign color set to object
+        question.colors = set
+        // grab 2 random colors and assign them in object
+        question.name = set[getRandomIntInclusive(0, set.length -1)]
+        question.style = set[getRandomIntInclusive(0, set.length -1)]
+        // push to questions
+        console.log(question)
+        questions.push(question)
+    })
+    console.log(questions)
+}
 
 
+//  populate first question
+const loadFirstQuestion = () => {
+    let firstQuestion = questions[0]
+    console.log(firstQuestion)
+
+    gpColor.innerHTML = firstQuestion.name.toUpperCase()
+    // gpColor.style.color = firstQuestion.style    ... may have to remove before adding
+    gpColor.classList.add(`${firstQuestion.style}`)
+
+    // change options
+    for(let i = 0; i < gpChoices.length; i++){
+        gpChoices[i].classList.add(`bg${firstQuestion.colors[i]}`)
+    }
+}
+
+console.log(gpButtons)
+
+gpButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        // console.log(button)
+        checkAnswer(button, GAME_STATS.answered)
+        // incrementAnswered()
+    })
+})
+
+// if question answered increment gamestats answered
+const incrementAnswered = () => {
+    GAME_STATS.answered++
+    console.log(GAME_STATS.answered)
+}
+
+// check if question was correct or incorrect   have to do before incrementing
+const checkAnswer = (selected, current) => {
+    console.log(questions[current])
+    
+    // get background color from selected
+    let classes = selected.classList.value.split(' ')
+    console.log(`selected classes:`, classes)
+    console.log(classes)
+    selected = classes.pop()
+    selected = selected.slice(2)
+
+    console.log(selected)
+
+    // get right answer from current
+    let correctAnswer = questions[current].name
+    console.log(`%ccorrect answer : ${correctAnswer}`, 'color:' + correctAnswer)
+
+}
 
 
+// load questions one by one... after answer is clicked
+const loadNextQuestions = () => {   
+
+}
 
 
 
