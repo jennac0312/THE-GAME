@@ -15,7 +15,7 @@
 <body>
     
     <!-- landing screen (home) -->
-    <div class="landingScreen setUpScreen hidden">
+    <div class="landingScreen setUpScreen ">
         <div class="content">
             <h2 class="">PRESENTING</h2>
             <h1 class="title">
@@ -49,36 +49,40 @@
     <!-- in progress -->
     <div class="directionsScreen setUpScreen hidden">
         <h1>DIRECTIONS</h1>
-        <p>A brain teaser, but make it 
-            <br>
-            <span class="cyan">C</span>
-            <span class="salmon">O</span>
-            <span class="gold">L</span>
-            <span class="magenta">O</span>
-            <span class="salmon">R</span>
-            <span class="yellow">F</span>
-            <span class="red">U</span>
-            <span class="lime">L</span>
-            <!-- <span class="yellow">!</span> -->
-        </p>
-        <p>a
-            <br>
-            <span class="cyan">c</span>
-            <span class="salmon">o</span>
-            <span class="gold">l</span>
-            <span class="magenta">o</span>
-            <span class="salmon">r</span>
-            <span class="yellow">f</span>
-            <span class="red">u</span>
-            <span class="lime">l</span>
-            <br>
-            <!-- <span class="yellow">!</span> --> brain teaser
-        </p>
-
+        <div class="content">
+            <section class="text"> <p>a</p>
+                
+                <span class="cyan">c</span>
+                <span class="salmon">o</span>
+                <span class="gold">l</span>
+                <span class="magenta">o</span>
+                <span class="salmon">r</span>
+                <span class="yellow">f</span>
+                <span class="red">u</span>
+                <span class="lime">l</span>
+            
+                <p class="bottom">brain teaser</p>
+            </section>
+            <h3>HOW IT'S PLAYED:</h3>
+            <div class="sampleGame">
+                <h5 style="color: yellow">RED</h5>
+                <div class="options">
+                    <div style="color:black; background-color: yellow; font-weight: bold;">yellow</div>
+                    <div style="color:black; background-color: orange; font-weight: bold;;">orange</div>
+                    <div style="color:black; background-color: green; font-weight: bold;;">green</div>
+                    <div style="color:black; background-color: red; font-weight: bold;;">red</div>
+                </div>
+                <p><span style="color: yellow">RED</span> is colored in <span style="color: yellow;">yellow</span>, but don't be fooled</p>
+                <p>The answer is <span style="color: red;">red</span>&nbsp!</p>
+            </div>
+        </div>
+        
         <div class="directionButtons">
             <button class="start">PLAY</button>
-            <button class="science">READ THE SCIENCE</button>
+            <a href="https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds#:~:text=Speed%20of%20Processing%20Theory%3A%20Simply,than%20we%20can%20process%20colors."><button class="science">READ THE SCIENCE</button></a>
         </div>
+        <span class="tidbit">*read more about the Stroop Effect here*</span>
+        <img src="https://www.freeiconspng.com/thumbs/cursor-png/original-file---svg-file-nominally-550--400-pixels-file-size-3--23.png" alt="" class="pointer">
     </div>
 
     <!-- mode screen -->
@@ -86,14 +90,30 @@
     <div class="modeScreen ">
 
 
+        <h1>MODE</h1>
+
+        <h2>CHOOSE YOUR MODE</h2>
         <div class="content">
-            <h1>CHOOSE YOUR MODE</h1>
-            <div class="buttons">
-                <button class="easy">EASY</button>
-                <button class="hard">HARD</button>
+            <div class="easyMode">
+                <div class="emContent">
+                    <section class="description">
+                        <p>4 choices</p>
+                        <p>Words on a white background</p>
+                    </section>
+                    <button class="easy">EASY</button>
+                </div>
             </div>
-            <button class="directions">DIRECTIONS</button>
+            <div class="hardMode">
+                <div class="hmContent">
+                    <section class="description">
+                        <p>4 choices</p>
+                        <p>No words, just background colors</p>
+                    </section>
+                    <button class="hard">HARD</button>
+                </div>
+            </div>
         </div>
+        <button class="directions">RETURN TO DIRECTIONS</button>
 
     </div>
 
@@ -101,19 +121,11 @@
     <!-- game board -->
     <div class="gameBoard hidden">
         <div class="details">
-            <p class="">mode:&nbsp; <span class="mode">easy</span></p>
-            <p class="timer"><span class="minutes">00</span> : <span class="seconds">00</span></p>
+            <p class="">mode:&nbsp; <span class="mode"></span></p>
+            <!-- <p class="timer"><span class="minutes">00</span> : <span class="seconds">00</span></p> -->
         </div>
         <div class="questionBox">
-            <h1 class="gameColor ">BLUE</h1>
-            <!-- like this orrrrr -->
-            <!-- <div class="choices">
-                <div class="choice c1">1</div>
-                <div class="choice c2">2</div>
-                <div class="choice c3">3</div>
-                <div class="choice c4">4 blue</div>
-            </div> -->
-            <!-- orrrrr this -->
+            <h1 class="gameColor "></h1>
             <div class="choices">
                 <button class="choice c1"></button>
                 <button class="choice c2"></button>
@@ -126,8 +138,16 @@
     <!-- end screen -->
     <div class="endScreenDefault ">
         <h1>GAME OVER</h1>
+
+        <div class="congrats hidden">
+            <p style="color: lime;">A PERFECT SCORE!</p>
+        </div>
+        <div class="loser hidden">
+            <p style="color: red;">YIKES! <br> That was hard to watch</p>
+        </div>
+
         <div class="stats">
-            <h3>You scored <span class="accuracy">80</span>%</h3>
+            <h3 >You scored <span class="accuracy">80</span>%</h3>
             <p>MODE: <span class="esMode">easy</span></p>
             <p>TOTAL QUESTIONS: <span class="questions">20</span></p>
             <p>CORRECT ANSWERS: <span class="correct">16</span></p>
@@ -152,8 +172,6 @@
                 <p class="accuracy"></p>
             </div>
         </div>
-
-
         <button class="play">PLAY AGAIN</button>
         <button class="clearHistory">CLEAR HISTORY</button>
         <!-- <button class="viewRank">VIEW RANK</button> -->

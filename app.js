@@ -17,6 +17,7 @@ const gpMode = document.querySelector('.mode')
 const minutes = document.querySelector('.minutes')
 const seconds = document.querySelector('.seconds')
 // questionBox variables
+const gpQuestionBox = document.querySelector('.questionBox')
 const gpColor = document.querySelector('.gameColor')
 const gpChoices = document.querySelectorAll('.choice')
 const gpButtons = gpChoices
@@ -31,6 +32,8 @@ const esMode = document.querySelector('.esMode')
 const esQuestions = document.querySelector('.questions')
 const esCorrect = document.querySelector('.correct')
 const esIncorrect = document.querySelector('.incorrect')
+const congratsPerfectScore = document.querySelector('.congrats')
+const loserScore = document.querySelector('.loser')
 // game over rank section
 const esRankContainer = document.querySelector('.rank')
 const esFirst = document.querySelector('.first')
@@ -68,6 +71,8 @@ buttons.forEach((button) => {
 
         if(GAME_STATS.start){
             //what to do when game is going
+            congratsPerfectScore.classList.add('hidden')
+            loserScore.classList.add('hidden')
         }
 
         if(button.classList.value.includes('start')){
@@ -117,7 +122,9 @@ buttons.forEach((button) => {
             hideAllScreensExcept(endScreenDefault)
         }
 
-
+        if(button.classList.contains('science')){
+            hideAllScreensExcept(directionsPage)
+        }
     })
 })
 
@@ -281,9 +288,13 @@ gpButtons.forEach((button) => {
         checkAnswer(button, GAME_STATS.answered)
         // incrementAnswered()
         if(GAME_STATS.mode === 'hard'){
-            loadNextQuestions(GAME_STATS.answered, 'hard')
+            setTimeout(() => {
+                loadNextQuestions(GAME_STATS.answered, 'hard')
+            }, 300);
         } else {
-            loadNextQuestions(GAME_STATS.answered, 'easy') // one silly typo here cost me about an hour
+            setTimeout(() => {
+                loadNextQuestions(GAME_STATS.answered, 'easy') // one silly typo here cost me about an hour
+            }, 300);
         }
     })
 })
@@ -328,6 +339,27 @@ const incremenetGameStats = (correct) => {
     correct ? GAME_STATS.correct++ : GAME_STATS.incorrect++
 
     console.log(GAME_STATS)
+    flash(correct)
+}
+
+// flash green if correct answer flash red if wrong
+const flash = (correct) => {
+    clearFlashStyles()
+    setTimeout(() => {
+        if(correct){
+            console.log(`RIGHT ANSWER YAY FLASH FLASH FLASH`)
+            gpQuestionBox.classList.add('rightAnswer')
+            // gpQuestionBox.style.backgroundColor = 'lime'
+        } else {
+            gpQuestionBox.classList.add('wrongAnswer')
+        }
+    }, 100);
+}
+
+// remove flashing class after each question
+const clearFlashStyles = () => {
+    gpQuestionBox.classList = ''
+    gpQuestionBox.classList = 'questionBox'
 }
 
 // load questions one by one... after answer is clicked
@@ -359,6 +391,7 @@ const changeOptionsContent = (current) => {
         gpChoices[i].innerHTML = current.colors[i]
         gpChoices[i].classList = ''
         gpChoices[i].classList.add('choice')
+        gpChoices[i].classList.add('bold')
     }
 }
 
@@ -436,6 +469,12 @@ const setAccuracy = () => {
 
 // set game over screen stats
 const showStats = () => {
+    if(GAME_STATS.accuracy === 100){
+        congratsPerfectScore.classList.remove('hidden')
+    }
+    if(GAME_STATS.accuracy <= 50){
+        loserScore.classList.remove('hidden')
+    }
     esAccuracy.innerHTML = GAME_STATS.accuracy
     esMode.innerHTML = GAME_STATS.mode
     esQuestions.innerHTML = GAME_STATS.totalQuestions
