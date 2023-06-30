@@ -15,7 +15,7 @@
 <body>
     
     <!-- landing screen (home) -->
-    <div class="landingScreen setUpScreen ">
+    <div class="landingScreen setUpScreen hidden">
         <div class="content">
             <h2 class="">PRESENTING</h2>
             <h1 class="title">
@@ -39,7 +39,7 @@
             <!--  add steps effect -->
             <p class="italic">the brain game</p>
             <div class="buttons homeButtons hidden">
-                <button class="start">START</button>
+                <button class="start">PLAY</button>
                 <button class="directions">DIRECTIONS</button>
             </div>
         </div>
@@ -75,13 +75,15 @@
             <!-- <span class="yellow">!</span> --> brain teaser
         </p>
 
-
-        <button class="start">Ready?</button>
+        <div class="directionButtons">
+            <button class="start">PLAY</button>
+            <button class="science">READ THE SCIENCE</button>
+        </div>
     </div>
 
     <!-- mode screen -->
     <!-- in progress -->
-    <div class="modeScreen hidden">
+    <div class="modeScreen ">
 
 
         <div class="content">
@@ -122,16 +124,38 @@
     </div>
 
     <!-- end screen -->
-    <div class="endScreenDefault hidden">
+    <div class="endScreenDefault ">
         <h1>GAME OVER</h1>
+        <div class="stats">
+            <h3>You scored <span class="accuracy">80</span>%</h3>
+            <p>MODE: <span class="esMode">easy</span></p>
+            <p>TOTAL QUESTIONS: <span class="questions">20</span></p>
+            <p>CORRECT ANSWERS: <span class="correct">16</span></p>
+            <p>INCORRECT ANSWERS: <span class="incorrect">0</span></p>
+        </div>
+        <div class="form">
+            <p>------------------------- enter username to view rank -------------------------</p>
+            <form action="" onsubmit="updateUsername(event)">
+                <input type="text" placeholder="username" id="username" onsubmit="" name="username">
+                <input type="submit" onsubmit="" class="submit">
+            </form>
+        </div>
+        <div class="rank">
+            <div class="titles">
+                <p>USERNAME</p>
+                <p>MODE</p>
+                <p>ACCURACY</p>
+            </div>   
+            <div class="ranks">
+                <p class="username"></p>
+                <p class="mode"></p>
+                <p class="accuracy"></p>
+            </div>
+        </div>
 
-        <p>enter username to view rank</p>
-        <form action="" onsubmit="logUser(event)">
-            <input type="text" placeholder="username" id="username" onsubmit="" name="username">
-            <input type="submit" onsubmit="">
-        </form>
 
-        <button class="">PLAY AGAIN</button>
+        <button class="play">PLAY AGAIN</button>
+        <button class="clearHistory">CLEAR HISTORY</button>
         <!-- <button class="viewRank">VIEW RANK</button> -->
     </div>
 

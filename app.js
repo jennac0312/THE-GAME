@@ -26,8 +26,20 @@ const GP_BUTTON_CLASSES = ["c1", "c2", "c3", "c4"]
 
 
 // game over screen variables
-
-
+const esAccuracy = document.querySelector('.accuracy') 
+const esMode = document.querySelector('.esMode')
+const esQuestions = document.querySelector('.questions')
+const esCorrect = document.querySelector('.correct')
+const esIncorrect = document.querySelector('.incorrect')
+// game over rank section
+const esRankContainer = document.querySelector('.rank')
+const esFirst = document.querySelector('.first')
+const esSecond = document.querySelector('.second')
+const esThird = document.querySelector('.third')
+// game over screen buttons
+const esPlayButton = document.querySelector('.play')
+const esClearHistoryButton = document.querySelector('.clearHistory')
+const esSubmitButton = document.querySelector('.submit')
 
 
 
@@ -41,6 +53,7 @@ const GAME_STATS = {
     correct: 0,
     incorrect: 0,
     answered: 0,
+    accuracy: 0,
     totalQuestions: numberOfQuestions
 }
 
@@ -83,10 +96,28 @@ buttons.forEach((button) => {
             // set game stats
             setGameStats('hard')
             // show game
-            gamePage.classList.remove('hidden')
+            hideAllScreensExcept(gamePage)
+            // show game stats
+            console.log('STATUS',GAME_STATS)
             // start game
             startGame()
         }
+
+        if(button.classList.contains('play')){
+            console.log('play again button clicked')
+            hideAllScreensExcept(homePage)
+
+            // need to reset stats
+            resetStats()
+        }
+        if(button.classList.contains('clearHistory')){
+            localStorage.clear()
+            clearRanks()
+            clearVariables()
+            hideAllScreensExcept(endScreenDefault)
+        }
+
+
     })
 })
 
@@ -116,6 +147,18 @@ const setGameStats = (mode) => {
     setMode()
 }
 
+// reset game stats
+const resetStats = () => {
+        GAME_STATS.username = 'PLAYER1',
+        GAME_STATS.start = false,
+        GAME_STATS.timer = {},
+        GAME_STATS.correct = 0,
+        GAME_STATS.incorrect = 0,
+        GAME_STATS.answered = 0,
+        GAME_STATS.accuracy = 0,
+        GAME_STATS.totalQuestions= numberOfQuestions
+}
+
 // set mode on game screen
 const setMode = () => {
     gpMode.innerHTML = GAME_STATS.mode
@@ -127,6 +170,8 @@ const hideAllScreens = () => {
       modePage.classList.add('hidden')
       gamePage.classList.add('hidden')
       directionsPage.classList.add('hidden')
+      endScreenDefault.classList.add('hidden')
+    console.log('STATUS',GAME_STATS)
 }
 
 // hide all screens except
@@ -333,25 +378,85 @@ const checkForEnd = () => {
 
 // end game
 const endGame = () => {
+    clearRanks()
+    setStatus()
+    setAccuracy()
+    showStats()
     console.log(`%cGAME OVER`, 'color: red; font-size: 15px')
     // hide game screen
     gamePage.classList.add('hidden')
     // go to game over screen
     endScreenDefault.classList.remove('hidden')
 
+    console.log(GAME_STATS)
+
+}
+
+// set game status
+const setStatus = () => {
+    GAME_STATS.start = false
+}
+
+// set accuracy stat
+const setAccuracy = () => {
+    let accuracy = GAME_STATS.correct / GAME_STATS.answered
+
+    GAME_STATS.accuracy = accuracy.toFixed(2) * 100
+}
+
+// set game over screen stats
+const showStats = () => {
+    esAccuracy.innerHTML = GAME_STATS.accuracy
+    esMode.innerHTML = GAME_STATS.mode
+    esQuestions.innerHTML = GAME_STATS.totalQuestions
+    esCorrect.innerHTML = GAME_STATS.correct
+    esIncorrect.innerHTML = GAME_STATS.incorrect
+}
+
+
+// submit button clicked
+const onSubmit =  () => {
+    // clear out rank container
+    clearRanks()
+    setLocalStorage()
+    getLocalStorage()
+    storeInObjects()
+    sortByMode()
+    shortenModes()
+    displayRecentPlays(GAME_STATS.mode)
+}
+
+// clear rank container
+const clearRanks = () => {
+    esRankContainer.innerHTML = `   <div class="titles">
+    <p>USERNAME</p>
+    <p>MODE</p>
+    <p>ACCURACY</p>
+</div>   `
+}
+// clear variables
+const clearVariables = () => {
+    stored = []
+    recentPlays = []
+    easyMode = []
+    hardMode = []
 }
 
 const username = document.querySelector('#username')
 
-const logUser = (event) => {
+const updateUsername = (event) => {
     console.log(event)
-    event.preventDefault() //prevent reload
-    // console.log(event.target['username'].value)
-    console.log(username.value)
+    event.preventDefault() //prevent page reload
+    GAME_STATS.username = username.value
+    // clear submit
+    username.value = ''
+
+    console.log(GAME_STATS)
+    // setLocalStorage()
+    // getLocalStorage()
+
+    onSubmit()
 }
-
-
-
 
 
 
@@ -360,15 +465,115 @@ const setLocalStorage = () => {
     //remove start and username ?? from gamestats before storing
     // deep copy so that delete doesnt affect original gamestats
     let stats = Object.assign({}, GAME_STATS)
-
-    delete stats.username
+    
+    // delete stats.username
     delete stats.start
 
     localStorage.setItem(GAME_STATS.username, JSON.stringify(stats))
 }
 
-setLocalStorage()
 
+let stored = []
+
+// get data from local storage
+const getLocalStorage = () => {
+    for(let i = 0; i <localStorage.length; i++){
+
+        let key = localStorage.key(i)
+        let value = (JSON.parse(localStorage.getItem(key)))
+        console.log(value)
+       
+        let keyValuePair = {}
+        keyValuePair.key = value
+
+        stored.push(keyValuePair)
+    }
+    console.log( stored)
+    // storeInObjects()
+}
+
+let recentPlays = []
+// grab and organize important info
+const storeInObjects = () => {
+    stored.forEach((obj) => {
+        console.log(obj)
+        // ordered.push(obj.key.correct)
+        let user = {}
+        user.username = obj.key.username
+        user.totalQuestions = obj.key.totalQuestions
+        user.mode = obj.key.mode
+        user.accuracy = obj.key.accuracy
+        user.timer = obj.key.timer
+
+        recentPlays.push(user)
+    })
+    console.log(`all recent plays`,recentPlays)
+
+    // stored.sort((stored.key.correct, stored.key.correct))
+    // console.log(ordered)
+    // sortByMode()
+    // shortenModes()
+    // displayRecentPlays(GAME_STATS.mode)
+}
+
+// recent plays appear on screen
+
+let easyMode = []
+let hardMode = []
+
+// sort stored by mode
+const sortByMode = () => {
+    recentPlays.forEach((obj) => {
+        if(obj.mode === 'easy'){
+            easyMode.push(obj)
+        } else if (obj.mode === 'hard'){
+            hardMode.push(obj)
+        }
+    })
+
+    console.log(easyMode)
+    console.log(hardMode)
+}
+
+// remove from easyMode and hardMode if length > 10
+const shortenModes = () => {
+    if(easyMode.length > 5){
+        let extra = easyMode.length - 5
+        for(let i = 1; i <= extra; i ++)
+        easyMode.shift()
+    }
+    if(hardMode.length > 5){
+        let extra = hardMode.length - 5
+        for(let i = 1; i <= extra; i ++)
+        hardMode.shift()
+    }
+}
+
+const displayRecentPlays = (mode) => {
+   
+    if(mode === 'easy'){
+            for(let i = 0; i < easyMode.length; i++){
+                let display = ` <div class="ranks">
+                <p class="username">${easyMode[i].username}</p>
+                <p class="mode">${easyMode[i].mode}</p>
+                <p class="accuracy">${easyMode[i].accuracy}%</p>
+            </div>`
+                esRankContainer.innerHTML += display
+            } 
+    } else if(mode === 'hard'){
+            for(let i = 0; i < hardMode.length; i++){
+                let display = ` <div class="ranks">
+                <p class="username">${hardMode[i].username}</p>
+                <p class="mode">${hardMode[i].mode}</p>
+                <p class="accuracy">${hardMode[i].accuracy}%</p>
+             </div>`
+                esRankContainer.innerHTML += display
+            }
+    }
+}
+
+
+// display current stat
 
 
 
