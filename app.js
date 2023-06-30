@@ -89,7 +89,7 @@ buttons.forEach((button) => {
             // show game
             gamePage.classList.remove('hidden')
             // start game
-            startGame()
+            startGame('easy')
         }
         if(button.classList.contains('hard')){
             button.style.backgroundColor = 'rgb(168, 134, 74);'
@@ -100,7 +100,7 @@ buttons.forEach((button) => {
             // show game stats
             console.log('STATUS',GAME_STATS)
             // start game
-            startGame()
+            startGame('hard')
         }
 
         if(button.classList.contains('play')){
@@ -180,11 +180,11 @@ const hideAllScreensExcept = (except) => {
     if(except) except.classList.remove('hidden')
 }
 
-const startGame = () => {
+const startGame = (mode) => {
     createAnswerSets(numberOfQuestions)
     console.log(useableSets)
     configureQuestions()
-    loadNextQuestions(GAME_STATS.answered)
+    loadNextQuestions(GAME_STATS.answered, mode)
 }
 
 // timer ... needs work 
@@ -275,19 +275,19 @@ const configureQuestions = () => {
 
 
 //  populate first question
-const loadFirstQuestion = () => {
-    let firstQuestion = questions[0]
-    console.log(firstQuestion)
+// const loadFirstQuestion = () => {
+//     let firstQuestion = questions[0]
+//     console.log(firstQuestion)
 
-    gpColor.innerHTML = firstQuestion.name.toUpperCase()
-    // gpColor.style.color = firstQuestion.style    ... may have to remove before adding
-    gpColor.classList.add(`${firstQuestion.style}`)
+//     gpColor.innerHTML = firstQuestion.name.toUpperCase()
+//     // gpColor.style.color = firstQuestion.style    ... may have to remove before adding
+//     gpColor.classList.add(`${firstQuestion.style}`)
 
-    // change options
-    for(let i = 0; i < gpChoices.length; i++){
-        gpChoices[i].classList.add(`bg${firstQuestion.colors[i]}`)
-    }
-}
+//     // change options
+//     for(let i = 0; i < gpChoices.length; i++){
+//         gpChoices[i].classList.add(`bg${firstQuestion.colors[i]}`)
+//     }
+// }
 
 console.log(gpButtons)
 
@@ -296,7 +296,11 @@ gpButtons.forEach((button) => {
         // console.log(button)
         checkAnswer(button, GAME_STATS.answered)
         // incrementAnswered()
-        loadNextQuestions(GAME_STATS.answered)
+        if(GAME_STATS.mode === 'easy'){
+            loadNextQuestions(GAME_STATS.answered, 'easy')
+        } else {
+            loadNextQuestions(GAME_STATS.answered, 'hard') // one silly typo here cost me about an hour
+        }
     })
 })
 
@@ -309,18 +313,27 @@ const incrementAnswered = () => {
 // check if question was correct or incorrect   have to do before incrementing
 const checkAnswer = (selected, current) => {
     console.log(questions[current])
+    let correctAnswer
+    if(GAME_STATS.mode === 'easy'){
+        // get background color from selected
+        let classes = selected.classList.value.split(' ')
+        console.log(`selected classes:`, classes)
+        console.log(classes)
+        selected = classes.pop()
+        selected = selected.slice(2)
     
-    // get background color from selected
-    let classes = selected.classList.value.split(' ')
-    console.log(`selected classes:`, classes)
-    console.log(classes)
-    selected = classes.pop()
-    selected = selected.slice(2)
-
-    console.log(selected)
-    // get right answer from current
-    let correctAnswer = questions[current].name
-    console.log(`%ccorrect answer : ${correctAnswer}`, 'color:' + correctAnswer)
+        console.log(selected)
+        // get right answer from current
+        correctAnswer = questions[current].name
+        console.log(`%ccorrect answer : ${correctAnswer}`, 'color:' + correctAnswer)        
+    }
+    
+    if(GAME_STATS.mode === 'hard'){
+        selected = selected.innerHTML.toUpperCase()
+        console.log('SELECTED:',selected)
+        correctAnswer = gpColor.innerHTML
+        console.log('CORRECT',correctAnswer)
+    }
 
     selected === correctAnswer ? incremenetGameStats(true) : incremenetGameStats(false)
 }
@@ -334,39 +347,71 @@ const incremenetGameStats = (correct) => {
 }
 
 // load questions one by one... after answer is clicked
-const loadNextQuestions = (current) => {  
+const loadNextQuestions = (current, mode) => {  
     checkForEnd()
-    clearStyles() 
+    clearStyles(mode) 
     current = questions[current]
+
+    console.log(`currect`, current)
+    
 
     // plug in name and color(style)
     gpColor.innerHTML = current.name.toUpperCase()
     gpColor.classList.add(current.style)
-
+    
     // change options background color
-
-    for(let i = 0; i < gpChoices.length; i ++){
-        gpChoices[i].classList.add(`bg${current.colors[i]}`)
+    if(mode === 'easy'){
+        changeOptionsBackgroundColor(current)
     }
+
+    if(mode === 'hard'){
+        changeOptionsContent(current)
+    }
+}
+
+// change options content
+const changeOptionsContent = (current) => {
+    for(let i = 0; i < gpChoices.length; i++){
+        gpChoices[i].innerHTML = current.colors[i]
+        gpChoices[i].classList = ''
+        gpChoices[i].classList.add('choice')
+    }
+}
+
+// change options background color
+const changeOptionsBackgroundColor = (current) => {
+    console.log(`CURRENT`, current)
+        for(let i = 0; i < gpChoices.length; i ++){
+            gpChoices[i].classList.add(`bg${current.colors[i]}`)
+        }
 }
 
 // before loading next question... remove previous colors from dom
 
-const clearStyles = () => {
+const clearStyles = (mode) => {
     // clear classes
-   gpColor.classList.value = ''
-
-    // add important class back
-    gpColor.classList.add(GP_COLOR_CLASS)
-   console.log(gpColor)
-
-   for(let i = 0; i < gpButtons.length; i++){
-    // clear
-    gpButtons[i].classList.value = ''
-    // add back
-    // gpButtons[i].classList.add(GP_BUTTON_CLASSES[i]) //dont actually need these
-    gpButtons[i].classList.add('choice')
-   }
+    gpColor.classList.value = ''
+    
+    if(mode === 'easy'){
+        // add important class back
+        gpColor.classList.add(GP_COLOR_CLASS)
+       console.log(gpColor)
+    
+       for(let i = 0; i < gpButtons.length; i++){
+        // clear
+        gpButtons[i].classList.value = ''
+        // add back
+        // gpButtons[i].classList.add(GP_BUTTON_CLASSES[i]) //dont actually need these
+        gpButtons[i].classList.add('choice')
+       }
+    }
+    if(mode === 'hard'){
+        console.log(`CLEAR HARD STYLES`)
+        gpButtons.forEach((button) => {
+            button.classList = ''
+            button.classList.add('choice')
+        })
+    }
    console.log(gpButtons)
 }
 
