@@ -79,7 +79,7 @@
         
         <div class="directionButtons">
             <button class="start">PLAY</button>
-            <a href="https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds#:~:text=Speed%20of%20Processing%20Theory%3A%20Simply,than%20we%20can%20process%20colors."><button class="science">READ THE SCIENCE</button></a>
+            <a href="https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds#:~:text=Speed%20of%20Processing%20Theory%3A%20Simply,than%20we%20can%20process%20colors." target="_blank"><button class="science">READ THE SCIENCE</button></a>
         </div>
         <span class="tidbit">*read more about the Stroop Effect here*</span>
         <img src="https://www.freeiconspng.com/thumbs/cursor-png/original-file---svg-file-nominally-550--400-pixels-file-size-3--23.png" alt="" class="pointer">
@@ -87,7 +87,7 @@
 
     <!-- mode screen -->
     <!-- in progress -->
-    <div class="modeScreen ">
+    <div class="modeScreen hidden">
 
 
         <h1>MODE</h1>
@@ -133,12 +133,22 @@
                 <button class="choice c4"></button>
             </div>
         </div>
+
+        <div class="quitter">are you a loser?</div>
+    </div>
+
+    <div class="quitterScreen hidden">
+        <h2>...really?</h2>
+        <h1>SCRAM LOSER</h1>
     </div>
 
     <!-- end screen -->
-    <div class="endScreenDefault ">
+    <div class="endScreenDefault hidden">
         <h1>GAME OVER</h1>
 
+        <div class="placeholder ">
+            <p></p>
+        </div>
         <div class="congrats hidden">
             <p style="color: lime;">A PERFECT SCORE!</p>
         </div>
@@ -157,7 +167,7 @@
             <p>------------------------- enter username to view rank -------------------------</p>
             <form action="" onsubmit="updateUsername(event)">
                 <input type="text" placeholder="username" id="username" onsubmit="" name="username">
-                <input type="submit" onsubmit="" class="submit">
+                <input type="submit" onsubmit="" class="submit" id="submit">
             </form>
         </div>
         <div class="rank">

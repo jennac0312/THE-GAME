@@ -34,6 +34,7 @@ const esCorrect = document.querySelector('.correct')
 const esIncorrect = document.querySelector('.incorrect')
 const congratsPerfectScore = document.querySelector('.congrats')
 const loserScore = document.querySelector('.loser')
+const placeholder = document.querySelector('.placeholder')
 // game over rank section
 const esRankContainer = document.querySelector('.rank')
 const esFirst = document.querySelector('.first')
@@ -45,10 +46,21 @@ const esClearHistoryButton = document.querySelector('.clearHistory')
 const esSubmitButton = document.querySelector('.submit')
 
 
+// secret quit button
+const quitter = document.querySelector('.quitter')
+const quitPage = document.querySelector('.quitterScreen')
 
-const numberOfQuestions = 10
+quitter.addEventListener('click', () => {
+    hideAllScreensExcept(quitPage)
 
-// object to track screen location
+    setTimeout(() => {
+        location.reload()
+    }, 5000)
+})
+
+const numberOfQuestions = 20
+
+// track game stats
 const GAME_STATS = {
     username: 'PLAYER1',
     start : false,
@@ -73,18 +85,19 @@ buttons.forEach((button) => {
             //what to do when game is going
             congratsPerfectScore.classList.add('hidden')
             loserScore.classList.add('hidden')
+            placeholder.classList.remove('hidden')
         }
 
         if(button.classList.value.includes('start')){
             console.log('start button clicked')
             // show mode screen
-            modePage.classList.remove('hidden')
+            hideAllScreensExcept(modePage)
         }
 
         if(button.classList.contains('directions')){
             console.log(`directions clicked`)
             // show directions
-            directionsPage.classList.remove('hidden')
+            hideAllScreensExcept(directionsPage)
         }
 
         if(button.classList.contains('easy')){
@@ -92,7 +105,7 @@ buttons.forEach((button) => {
             // set game stats
             setGameStats('easy')
             // show game
-            gamePage.classList.remove('hidden')
+            hideAllScreensExcept(gamePage)
             // start game
             startGame('easy')
         }
@@ -114,12 +127,17 @@ buttons.forEach((button) => {
 
             // need to reset stats
             resetStats()
+            resetGameVariables()
         }
         if(button.classList.contains('clearHistory')){
             localStorage.clear()
             clearRanks()
             clearVariables()
             hideAllScreensExcept(endScreenDefault)
+            
+    console.log(`%cEASY MODE LENGTH ${JSON.stringify(easyMode).length}`, 'color: lightblue')
+    console.log(`%cHARD MODE LENGTH: ${JSON.stringify(hardMode).length}`, 'color: orange')
+    console.log('HARDMODE',hardMode)
         }
 
         if(button.classList.contains('science')){
@@ -132,16 +150,16 @@ buttons.forEach((button) => {
 // 10 seconds after page load... make title flash again
 setTimeout(() => {
     gameTitle.setAttribute('style', 'animation: flashing 1s infinite;')
-}, 10000)
+}, 3000)
 // 12 second delay... show buttons
 setTimeout(() => {
     hpBContainer.classList.remove('hidden')
-}, 12000)
+}, 7000)
 // 13 second delay... show hpParagraph
 setTimeout(() => {
     hpParagraph.style.color = `moccasin`
     // hpParagraph.setAttribute('style', 'animation: flashing 2s forwards')
-}, 11500)
+}, 6500)
 
 
 // get game stats
@@ -166,6 +184,13 @@ const resetStats = () => {
         GAME_STATS.totalQuestions= numberOfQuestions
 }
 
+// reset game variables
+const resetGameVariables = () => {
+    questions = []
+    colorChoices = []
+    useableSets = []
+}
+
 // set mode on game screen
 const setMode = () => {
     gpMode.innerHTML = GAME_STATS.mode
@@ -178,6 +203,7 @@ const hideAllScreens = () => {
       gamePage.classList.add('hidden')
       directionsPage.classList.add('hidden')
       endScreenDefault.classList.add('hidden')
+      quitPage.classList.add('hidden')
     console.log('STATUS',GAME_STATS)
 }
 
@@ -229,11 +255,9 @@ function getRandomIntInclusive(min, max) {
 const colors = ['red', 'orange', 'yellow', 'green', 'purple', 'pink', 'blue', 'grey', 'brown', 'white']
 const colorsIndexedLength = colors.length - 1
 
-let combinations = []
 let questions = []
 let colorChoices =  []
 
-let answerSets = []
 let useableSets = []
 
 // create answer selection first... push useable ones 
@@ -353,7 +377,7 @@ const flash = (correct) => {
         } else {
             gpQuestionBox.classList.add('wrongAnswer')
         }
-    }, 100);
+    }, );
 }
 
 // remove flashing class after each question
@@ -471,9 +495,11 @@ const setAccuracy = () => {
 const showStats = () => {
     if(GAME_STATS.accuracy === 100){
         congratsPerfectScore.classList.remove('hidden')
+        placeholder.classList.add('hidden')
     }
     if(GAME_STATS.accuracy <= 50){
         loserScore.classList.remove('hidden')
+        placeholder.classList.add('hidden')
     }
     esAccuracy.innerHTML = GAME_STATS.accuracy
     esMode.innerHTML = GAME_STATS.mode
@@ -487,6 +513,7 @@ const showStats = () => {
 const onSubmit =  () => {
     // clear out rank container
     clearRanks()
+    clearVariables()
     setLocalStorage()
     getLocalStorage()
     storeInObjects()
@@ -525,6 +552,11 @@ const updateUsername = (event) => {
     // getLocalStorage()
 
     onSubmit()
+
+    console.log(`HARD MODE`, hardMode)
+    hardMode.forEach((hard) => {
+        console.log(hard)
+    })
 }
 
 
@@ -600,26 +632,27 @@ const sortByMode = () => {
         }
     })
 
-    console.log(easyMode)
-    console.log(hardMode)
+    console.log(`%cEASY MODE LENGTH ${JSON.stringify(easyMode).length}`, 'color: lightblue')
+    console.log(`%cHARD MODE LENGTH: ${JSON.stringify(hardMode).length}`, 'color: orange')
 }
 
 // remove from easyMode and hardMode if length > 10
 const shortenModes = () => {
-    if(easyMode.length > 5){
-        let extra = easyMode.length - 5
-        for(let i = 1; i <= extra; i ++)
-        easyMode.shift()
+    if(easyMode.length > 10){
+        let extra = easyMode.length - 10
+        for(let i = 1; i <= extra; i ++){
+            easyMode.shift()
+        }
     }
-    if(hardMode.length > 5){
-        let extra = hardMode.length - 5
-        for(let i = 1; i <= extra; i ++)
-        hardMode.shift()
+    if(hardMode.length > 10){
+        let extra = hardMode.length - 10
+        for(let i = 1; i <= extra; i ++){
+            hardMode.shift()
+        }
     }
 }
 
 const displayRecentPlays = (mode) => {
-   
     if(mode === 'easy'){
             for(let i = 0; i < easyMode.length; i++){
                 let display = ` <div class="ranks">
