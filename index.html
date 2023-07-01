@@ -15,7 +15,7 @@
 <body>
     
     <!-- landing screen (home) -->
-    <div class="landingScreen setUpScreen ">
+    <div class="landingScreen setUpScreen hidden">
         <div class="content">
             <h2 class="">PRESENTING</h2>
             <h1 class="title">
@@ -143,7 +143,7 @@
     </div>
 
     <!-- end screen -->
-    <div class="endScreenDefault hidden">
+    <div class="endScreenDefault ">
         <h1>GAME OVER</h1>
 
         <div class="placeholder ">
@@ -182,8 +182,10 @@
                 <p class="accuracy"></p>
             </div>
         </div>
-        <button class="play">PLAY AGAIN</button>
-        <button class="clearHistory">CLEAR HISTORY</button>
+        <section>
+            <button class="play">PLAY AGAIN</button>
+            <button class="clearHistory">CLEAR HISTORY</button>
+        </section>
         <!-- <button class="viewRank">VIEW RANK</button> -->
     </div>
     <script src="app.js"></script>

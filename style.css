@@ -581,6 +581,11 @@ p.bottom{
     margin: 0;
 }
 
+.endScreenDefault section {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .endScreenDefault button:hover, .submit:hover{
     cursor: pointer;
     background-color: rgb(168, 134, 74);
