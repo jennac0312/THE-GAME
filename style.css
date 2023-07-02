@@ -20,7 +20,8 @@ body * {
 
 body > *{
     background-color: #202124 !important;
-    height: 100%;
+    width: 390px;
+    height: 844px;
 }
 
 
@@ -279,35 +280,35 @@ p.bottom{
 }
 
 .modeScreen h2{
-    margin-top: 200px;
+    margin-top: 120px;
     margin-bottom: 10px;
 }
 
 .modeScreen .content{
     /* border: 2px solid yellow; */
-    width: 380px;
-    height: 200px;
+    width: 98.5%;
+    /* height: 200px; */
     /* margin-top: 150px; */
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     /* flex-direction: column; */
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin: auto;
 }
 
-.hardMode, .easyMode{
+.hardMode, .easyMode, .arcadeMode, .speedMode{
     border: 1px dashed rgba(255, 255, 255, .7);
-    width: 190px;
-    height: 100%;
+    width: 49.48%;
+    height: 200px;
     background-color: rgba(255, 255, 255, .1);
 }
 
-.hardMode:hover, .easyMode:hover{
+.hardMode:hover, .easyMode:hover, .arcadeMode:hover, .speedMode:hover{
     background-color: rgba(255, 255, 255, .3);
 }
 
-.hardMode div, .easyMode div {
+.hardMode div, .easyMode div, .arcadeMode div, .speedMode div {
     /* border: 1px solid red; */
     height: 100%;
     margin: 0 5px;
@@ -346,7 +347,7 @@ p.bottom{
 }
 
 .modeScreen .directions{
-    margin-top: 310px;
+    margin-top: 180px;
     margin-left: 220px
 }
 

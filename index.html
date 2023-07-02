@@ -87,7 +87,7 @@
 
     <!-- mode screen -->
     <!-- in progress -->
-    <div class="modeScreen hidden">
+    <div class="modeScreen ">
 
 
         <h1>MODE</h1>
@@ -110,6 +110,24 @@
                         <p>No words, just background colors</p>
                     </section>
                     <button class="hard">HARD</button>
+                </div>
+            </div>
+            <div class="speedMode">
+                <div class="smContent">
+                    <section class="description">
+                        <!-- <p>4 choices</p> -->
+                        <p>60 seconds <br> How fast are you?</p>
+                    </section>
+                    <button class="speed">SPEED</button>
+                </div>
+            </div>
+            <div class="arcadeMode">
+                <div class="amContent">
+                    <section class="description">
+                        <!-- <p>4 choices</p> -->
+                        <p>One Rule: <br> <span style="color: rgb(255, 0, 0,.7); font-style: italic;">Don't miss</span></p>
+                    </section>
+                    <button class="arcade">ARCADE</button>
                 </div>
             </div>
         </div>
@@ -143,7 +161,7 @@
     </div>
 
     <!-- end screen -->
-    <div class="endScreenDefault ">
+    <div class="endScreenDefault hidden">
         <h1>GAME OVER</h1>
 
         <div class="placeholder ">
@@ -157,7 +175,8 @@
         </div>
 
         <div class="stats">
-            <h3 >You scored <span class="accuracy">80</span>%</h3>
+            <h3 class="scoreLine">You scored <span class="accuracy">80</span>%</h3>
+            <h3 class="arcadeLine hidden" style="width: fit-content">You answered <span class="arcadeRound">3</span>&nbspcorrectly</h3>
             <p>MODE: <span class="esMode">easy</span></p>
             <p>TOTAL QUESTIONS: <span class="questions">20</span></p>
             <p>CORRECT ANSWERS: <span class="correct">16</span></p>

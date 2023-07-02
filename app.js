@@ -45,6 +45,10 @@ const esPlayButton = document.querySelector('.play')
 const esClearHistoryButton = document.querySelector('.clearHistory')
 const esSubmitButton = document.querySelector('.submit')
 
+// arcade mode features
+const scoreLine = document.querySelector('.scoreLine')
+const arcadeLine = document.querySelector('.arcadeLine')
+const arcadeRound = document.querySelector('.arcadeRound')
 
 // secret quit button
 const quitter = document.querySelector('.quitter')
@@ -52,13 +56,14 @@ const quitPage = document.querySelector('.quitterScreen')
 
 quitter.addEventListener('click', () => {
     hideAllScreensExcept(quitPage)
-
+    
     setTimeout(() => {
         location.reload()
     }, 5000)
 })
 
-const numberOfQuestions = 20
+// important lol dont delete. lesson learned
+let numberOfQuestions = 20
 
 // track game stats
 const GAME_STATS = {
@@ -128,6 +133,7 @@ buttons.forEach((button) => {
             // need to reset stats
             resetStats()
             resetGameVariables()
+            resetHTML()
         }
         if(button.classList.contains('clearHistory')){
             localStorage.clear()
@@ -142,6 +148,22 @@ buttons.forEach((button) => {
 
         if(button.classList.contains('science')){
             hideAllScreensExcept(directionsPage)
+        }
+
+        // 2 new modes
+        if(button.classList.contains('arcade')){
+            console.log(`enter arcade mode`)
+
+            setGameStats('arcade')
+            hideAllScreensExcept(gamePage)
+            startGame('arcade')
+        }
+        if(button.classList.contains('speed')){
+            console.log('enter speed mode')
+
+            setGameStats('speed')
+            hideAllScreensExcept(gamePage)
+            startGame('speed')
         }
     })
 })
@@ -167,7 +189,12 @@ const setGameStats = (mode) => {
     GAME_STATS.mode = mode
     GAME_STATS.start = true
     GAME_STATS.timer = startTimer()
+    GAME_STATS.totalQuestions = 20
     console.log(GAME_STATS)
+
+    if(mode === 'arcade' || mode === 'speed'){
+        GAME_STATS.totalQuestions = 5
+    }
 
     setMode()
 }
@@ -189,6 +216,13 @@ const resetGameVariables = () => {
     questions = []
     colorChoices = []
     useableSets = []
+}
+
+//reset html changes from arcade mode
+const resetHTML = () => {
+    scoreLine.classList.remove('hidden')
+    arcadeLine.classList.add('hidden')
+    // arcadeRound
 }
 
 // set mode on game screen
@@ -214,7 +248,7 @@ const hideAllScreensExcept = (except) => {
 }
 
 const startGame = (mode) => {
-    createAnswerSets(numberOfQuestions)
+    createAnswerSets(GAME_STATS.totalQuestions)
     console.log(useableSets)
     configureQuestions()
     loadNextQuestions(GAME_STATS.answered, mode)
@@ -315,9 +349,17 @@ gpButtons.forEach((button) => {
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'hard')
             }, 300);
-        } else {
+        } else if(GAME_STATS.mode === 'easy') {
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'easy') // one silly typo here cost me about an hour
+            }, 300);
+        } else if(GAME_STATS.mode === 'arcade'){
+            setTimeout(() => {
+                loadNextQuestions(GAME_STATS.answered, 'arcade')
+            }, 300);
+        } else if(GAME_STATS.mode === 'speed'){
+            setTimeout(() => {
+                loadNextQuestions(GAME_STATS.answered, 'speed')
             }, 300);
         }
     })
@@ -333,7 +375,7 @@ const incrementAnswered = () => {
 const checkAnswer = (selected, current) => {
     console.log(questions[current])
     let correctAnswer
-    if(GAME_STATS.mode === 'hard'){
+    if(GAME_STATS.mode === 'hard' || GAME_STATS.mode === 'arcade' || GAME_STATS.mode === 'speed'){
         // get background color from selected
         let classes = selected.classList.value.split(' ')
         console.log(`selected classes:`, classes)
@@ -400,7 +442,7 @@ const loadNextQuestions = (current, mode) => {
     gpColor.classList.add(current.style)
     
     // change options background color
-    if(mode === 'hard'){
+    if(mode === 'hard' || mode === 'arcade' || mode === 'speed'){
         changeOptionsBackgroundColor(current)
     }
 
@@ -434,7 +476,7 @@ const clearStyles = (mode) => {
     // clear classes
     gpColor.classList.value = ''
     
-    if(mode === 'hard'){
+    if(mode === 'hard' || mode === 'arcade' || mode === 'speed'){
         // add important class back
         gpColor.classList.add(GP_COLOR_CLASS)
        console.log(gpColor)
@@ -459,12 +501,48 @@ const clearStyles = (mode) => {
 
 // check for end
 const checkForEnd = () => {
-    GAME_STATS.answered === numberOfQuestions ? endGame(): console.log(`%cGAME ON`, 'color: lime')
+    // if arcade end when 1 wrong answer
+    if(GAME_STATS.mode === 'arcade' || GAME_STATS.mode === 'speed'){
+        fixModes(GAME_STATS.mode)
+
+    } else {
+        GAME_STATS.answered === GAME_STATS.totalQuestions ? endGame(): console.log(`%cGAME ON`, 'color: lime')
+    }
 }
 
+// fix arcade mode stats
+const fixModes = (mode) => {
+
+    // need to change rank title from ACCURACY to CORRECT ANSWERS (maybe ROUND for arcade?)
+    if(mode=== 'arcade'){
+        //end 
+        GAME_STATS.incorrect > 0 ? endGame() : console.log(`%cGAME ON`, 'color: lime')
+
+        //set total questions stat to total answered
+        
+        GAME_STATS.totalQuestions = GAME_STATS.answered
+    
+        // fix ending screen
+        scoreLine.classList.add('hidden')
+        arcadeLine.classList.remove('hidden')
+    
+        arcadeRound.innerHTML = (GAME_STATS.answered - GAME_STATS.incorrect)
+    }
+
+    if(mode === 'speed'){
+        //speed mode changes
+                /// end after 60 seconds pass
+
+        GAME_STATS.totalQuestions = GAME_STATS.answered
+        // cant think of what ending screen should say
+
+    }
+
+}
 
 // end game
 const endGame = () => {
+    clearFlashStyles() //got rid of weird first flash before game starts... from lingering flash of previous game
     clearRanks()
     setStatus()
     setAccuracy()
