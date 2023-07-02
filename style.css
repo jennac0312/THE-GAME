@@ -532,6 +532,7 @@ p.bottom{
     border-bottom: 1px solid rgba(0, 0, 0);   
     display: flex;
     justify-content: space-between;
+    font-weight: bold;
 }
 .titles p {
     width: 33.3333%;
