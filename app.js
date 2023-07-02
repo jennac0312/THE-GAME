@@ -219,7 +219,7 @@ const resetGameVariables = () => {
     questions = []
     colorChoices = []
     useableSets = []
-    secs = 10
+    secs = 60
 }
 
 //reset html changes from arcade mode
@@ -259,7 +259,7 @@ const startGame = (mode) => {
 }
 
 // 60 second timer
-let secs = 10
+let secs = 60
 const startCountdown = () => {
     intervalID = setInterval(tick, 1000)
 }
