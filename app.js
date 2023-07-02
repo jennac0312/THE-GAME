@@ -572,7 +572,8 @@ const setAccuracy = () => {
     let accuracy
     if(GAME_STATS.answered > 0){
         accuracy = GAME_STATS.correct / GAME_STATS.answered
-        GAME_STATS.accuracy = accuracy.toFixed(2) * 100
+        // GAME_STATS.accuracy = accuracy.toFixed(2) * 100
+        GAME_STATS.accuracy = (accuracy* 100).toPrecision(2)
     } else {
         accuracy = 0
     }
@@ -729,8 +730,8 @@ const sortByMode = () => {
 
     console.log(`%cEASY MODE LENGTH ${JSON.stringify(easyMode).length}`, 'color: lightblue')
     console.log(`%cHARD MODE LENGTH: ${JSON.stringify(hardMode).length}`, 'color: orange')
-    console.log(`%ARCADE MODE LENGTH: ${JSON.stringify(arcadeMode).length}`, 'color: yellow')
-    console.log(`%SPEED MODE LENGTH: ${JSON.stringify(speedMode).length}`, 'color: grey')
+    console.log(`%cARCADE MODE LENGTH: ${JSON.stringify(arcadeMode).length}`, 'color: yellow')
+    console.log(`%cSPEED MODE LENGTH: ${JSON.stringify(speedMode).length}`, 'color: grey')
 }
 
 // remove from easyMode and hardMode if length > 10
