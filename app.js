@@ -188,12 +188,15 @@ setTimeout(() => {
 const setGameStats = (mode) => {
     GAME_STATS.mode = mode
     GAME_STATS.start = true
-    GAME_STATS.timer = startTimer()
+    GAME_STATS.timer = 'no timer'
     GAME_STATS.totalQuestions = 20
     console.log(GAME_STATS)
 
     if(mode === 'arcade' || mode === 'speed'){
-        GAME_STATS.totalQuestions = 5
+        GAME_STATS.totalQuestions = 100
+    }
+    if(mode === 'speed'){
+        GAME_STATS.timer = startCountdown()
     }
 
     setMode()
@@ -254,29 +257,30 @@ const startGame = (mode) => {
     loadNextQuestions(GAME_STATS.answered, mode)
 }
 
-// timer ... needs work 
-const startTimer = () => {
-    // startMinutes()
-    // startSeconds()
-    // mins = setInterval(startMinutes(), 10000);
-    // seconds.innerHTML = startSeconds()
-    let mins = 0
-    return {mins: mins, seconds: 0}
+// 60 second timer
+let secs = 10
+const startCountdown = () => {
+    intervalID = setInterval(tick, 1000)
 }
 
-const startMinutes = () => {
-    mins++
-    return mins
+//  count down secs
+const tick = () => {
+    // updating timer
+    GAME_STATS.timer = secs
+    console.log(GAME_STATS)
+    console.log(secs)
+    secs--
+    
+    if(secs < 0){
+        stopTimer()
+        endGame()
+    }
 }
 
-// const startSeconds = () => {
-//     let secs = 0o0
-//     setInterval(() => {
-//         secs++
-//     }, 1000)
-
-//     return secs
-// }
+const stopTimer = () => {
+    clearInterval(intervalID)
+    console.log(`%ctimes up!!!!!!`, 'color: red; font-size: 25px')
+}
 
 // random inclusive
 function getRandomIntInclusive(min, max) {
@@ -504,7 +508,6 @@ const checkForEnd = () => {
     // if arcade end when 1 wrong answer
     if(GAME_STATS.mode === 'arcade' || GAME_STATS.mode === 'speed'){
         fixModes(GAME_STATS.mode)
-
     } else {
         GAME_STATS.answered === GAME_STATS.totalQuestions ? endGame(): console.log(`%cGAME ON`, 'color: lime')
     }
@@ -512,21 +515,19 @@ const checkForEnd = () => {
 
 // fix arcade mode stats
 const fixModes = (mode) => {
-
     // need to change rank title from ACCURACY to CORRECT ANSWERS (maybe ROUND for arcade?)
+
+    // fix ending screen
+    scoreLine.classList.add('hidden')
+    arcadeLine.classList.remove('hidden')
+
     if(mode=== 'arcade'){
         //end 
         GAME_STATS.incorrect > 0 ? endGame() : console.log(`%cGAME ON`, 'color: lime')
-
-        //set total questions stat to total answered
-        
+       
+        //set total questions stat to total answered   
         GAME_STATS.totalQuestions = GAME_STATS.answered
-    
-        // fix ending screen
-        scoreLine.classList.add('hidden')
-        arcadeLine.classList.remove('hidden')
-    
-        arcadeRound.innerHTML = (GAME_STATS.answered - GAME_STATS.incorrect)
+        arcadeRound.innerHTML = (GAME_STATS.answered)
     }
 
     if(mode === 'speed'){
@@ -535,6 +536,9 @@ const fixModes = (mode) => {
 
         GAME_STATS.totalQuestions = GAME_STATS.answered
         // cant think of what ending screen should say
+
+
+        // endGame() when time hits 60 secs or 1 min
 
     }
 
@@ -581,7 +585,7 @@ const showStats = () => {
     }
     esAccuracy.innerHTML = GAME_STATS.accuracy
     esMode.innerHTML = GAME_STATS.mode
-    esQuestions.innerHTML = GAME_STATS.totalQuestions
+    esQuestions.innerHTML = GAME_STATS.answered //changed bc 1 off for arcade mode
     esCorrect.innerHTML = GAME_STATS.correct
     esIncorrect.innerHTML = GAME_STATS.incorrect
 }
