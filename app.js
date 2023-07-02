@@ -538,8 +538,6 @@ const fixModes = (mode) => {
         // cant think of what ending screen should say
 
 
-        // endGame() when time hits 60 secs or 1 min
-
     }
 
 }
@@ -618,6 +616,8 @@ const clearVariables = () => {
     recentPlays = []
     easyMode = []
     hardMode = []
+    arcadeMode = []
+    speedMode = []
 }
 
 const username = document.querySelector('#username')
@@ -703,6 +703,8 @@ const storeInObjects = () => {
 
 let easyMode = []
 let hardMode = []
+let arcadeMode = []
+let speedMode = []
 
 // sort stored by mode
 const sortByMode = () => {
@@ -711,11 +713,17 @@ const sortByMode = () => {
             easyMode.push(obj)
         } else if (obj.mode === 'hard'){
             hardMode.push(obj)
+        } else if(obj.mode === 'arcade'){
+            arcadeMode.push(obj)
+        } else if(obj.mode === 'speed'){
+            speedMode.push(obj)
         }
     })
 
     console.log(`%cEASY MODE LENGTH ${JSON.stringify(easyMode).length}`, 'color: lightblue')
     console.log(`%cHARD MODE LENGTH: ${JSON.stringify(hardMode).length}`, 'color: orange')
+    console.log(`%ARCADE MODE LENGTH: ${JSON.stringify(arcadeMode).length}`, 'color: yellow')
+    console.log(`%SPEED MODE LENGTH: ${JSON.stringify(speedMode).length}`, 'color: grey')
 }
 
 // remove from easyMode and hardMode if length > 10
@@ -730,6 +738,18 @@ const shortenModes = () => {
         let extra = hardMode.length - 10
         for(let i = 1; i <= extra; i ++){
             hardMode.shift()
+        }
+    }
+    if(arcadeMode.length > 10){
+        let extra = arcadeMode.length - 10
+        for(let i = 1; i <= extra; i ++){
+            arcadeMode.shift()
+        }
+    }
+    if(speedMode.length > 10){
+        let extra = speedMode.length - 10
+        for(let i = 1; i <= extra; i ++){
+            speedMode.shift()
         }
     }
 }
@@ -753,6 +773,24 @@ const displayRecentPlays = (mode) => {
              </div>`
                 esRankContainer.innerHTML += display
             }
+    } else if(mode === 'arcade'){
+        for(let i = 0; i < arcadeMode.length; i++){
+            let display = ` <div class="ranks">
+            <p class="username">${arcadeMode[i].username}</p>
+            <p class="mode">${arcadeMode[i].mode}</p>
+            <p class="accuracy">${arcadeMode[i].accuracy}%</p>
+         </div>`
+            esRankContainer.innerHTML += display
+        }
+    } else if(mode === 'speed'){
+        for(let i = 0; i < speedMode.length; i++){
+            let display = ` <div class="ranks">
+            <p class="username">${speedMode[i].username}</p>
+            <p class="mode">${speedMode[i].mode}</p>
+            <p class="accuracy">${speedMode[i].accuracy}%</p>
+         </div>`
+            esRankContainer.innerHTML += display
+        }
     }
 }
 
