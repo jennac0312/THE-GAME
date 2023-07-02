@@ -219,6 +219,7 @@ const resetGameVariables = () => {
     questions = []
     colorChoices = []
     useableSets = []
+    secs = 10
 }
 
 //reset html changes from arcade mode
@@ -352,19 +353,19 @@ gpButtons.forEach((button) => {
         if(GAME_STATS.mode === 'hard'){
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'hard')
-            }, 300);
+            }, 100);
         } else if(GAME_STATS.mode === 'easy') {
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'easy') // one silly typo here cost me about an hour
-            }, 300);
+            }, 100);
         } else if(GAME_STATS.mode === 'arcade'){
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'arcade')
-            }, 300);
+            }, 100);
         } else if(GAME_STATS.mode === 'speed'){
             setTimeout(() => {
                 loadNextQuestions(GAME_STATS.answered, 'speed')
-            }, 300);
+            }, 100);
         }
     })
 })
@@ -535,6 +536,8 @@ const fixModes = (mode) => {
                 /// end after 60 seconds pass
 
         GAME_STATS.totalQuestions = GAME_STATS.answered
+        arcadeRound.innerHTML = (GAME_STATS.answered)
+
         // cant think of what ending screen should say
 
 
@@ -566,9 +569,13 @@ const setStatus = () => {
 
 // set accuracy stat
 const setAccuracy = () => {
-    let accuracy = GAME_STATS.correct / GAME_STATS.answered
-
-    GAME_STATS.accuracy = accuracy.toFixed(2) * 100
+    let accuracy
+    if(GAME_STATS.answered > 0){
+        accuracy = GAME_STATS.correct / GAME_STATS.answered
+        GAME_STATS.accuracy = accuracy.toFixed(2) * 100
+    } else {
+        accuracy = 0
+    }
 }
 
 // set game over screen stats
