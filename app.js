@@ -397,7 +397,10 @@ const checkAnswer = (selected, current) => {
     if(GAME_STATS.mode === 'easy'){
         selected = selected.innerHTML.toUpperCase()
         console.log('SELECTED:',selected)
-        correctAnswer = gpColor.innerHTML
+        // i think this is wrong
+        // correctAnswer = gpColor.innerHTML
+        // should be this instead
+        correctAnswer = questions[current].style.toUpperCase()
         console.log('CORRECT',correctAnswer)
     }
 
@@ -570,10 +573,12 @@ const setStatus = () => {
 // set accuracy stat
 const setAccuracy = () => {
     let accuracy
-    if(GAME_STATS.answered > 0){
+    if(GAME_STATS.answered === GAME_STATS.correct){
+        accuracy = 100
+    } else if(GAME_STATS.answered > 0){
         accuracy = GAME_STATS.correct / GAME_STATS.answered
         // GAME_STATS.accuracy = accuracy.toFixed(2) * 100
-        GAME_STATS.accuracy = (accuracy* 100).toPrecision(2)
+        GAME_STATS.accuracy = (accuracy* 100)
     } else {
         accuracy = 0
     }
