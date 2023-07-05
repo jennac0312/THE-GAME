@@ -576,9 +576,9 @@ const setAccuracy = () => {
     if(GAME_STATS.answered === GAME_STATS.correct){
         accuracy = 100
     } else if(GAME_STATS.answered > 0){
-        accuracy = GAME_STATS.correct / GAME_STATS.answered
+        accuracy = ( GAME_STATS.correct / GAME_STATS.answered )
         // GAME_STATS.accuracy = accuracy.toFixed(2) * 100
-        GAME_STATS.accuracy = (accuracy* 100)
+        GAME_STATS.accuracy = (accuracy* 100).toFixed(0)
     } else {
         accuracy = 0
     }
