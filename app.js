@@ -78,6 +78,9 @@ const GAME_STATS = {
 }
 
 
+// intro
+console.log(`%cCOLOR BUSTER`, 'color: hotpink; font-size: 40px; font-weight: bold; margin-left: 50px')
+
 // toggle screens for buttons
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -121,7 +124,7 @@ buttons.forEach((button) => {
             // show game
             hideAllScreensExcept(gamePage)
             // show game stats
-            console.log('STATUS',GAME_STATS)
+            // console.log('STATUS',GAME_STATS)
             // start game
             startGame('hard')
         }
@@ -242,7 +245,7 @@ const hideAllScreens = () => {
       directionsPage.classList.add('hidden')
       endScreenDefault.classList.add('hidden')
       quitPage.classList.add('hidden')
-    console.log('STATUS',GAME_STATS)
+    // console.log('STATUS',GAME_STATS)
 }
 
 // hide all screens except
@@ -253,7 +256,7 @@ const hideAllScreensExcept = (except) => {
 
 const startGame = (mode) => {
     createAnswerSets(GAME_STATS.totalQuestions)
-    console.log(useableSets)
+    // console.log(useableSets)
     configureQuestions()
     loadNextQuestions(GAME_STATS.answered, mode)
 }
@@ -269,7 +272,7 @@ const tick = () => {
     // updating timer
     GAME_STATS.timer = secs
     console.log(GAME_STATS)
-    console.log(secs)
+    console.log(`%c${secs} ...`, 'color: red; font-weight: bold;')
     secs--
     
     if(secs < 0){
@@ -337,13 +340,13 @@ const configureQuestions = () => {
         question.name = set[getRandomIntInclusive(0, set.length -1)]
         question.style = set[getRandomIntInclusive(0, set.length -1)]
         // push to questions
-        console.log(question)
+        // console.log(question)
         questions.push(question)
     })
     console.log(questions)
 }
 
-console.log(gpButtons)
+// console.log(gpButtons)
 
 gpButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -373,7 +376,7 @@ gpButtons.forEach((button) => {
 // if question answered increment gamestats answered
 const incrementAnswered = () => {
     GAME_STATS.answered++
-    console.log(GAME_STATS.answered)
+    console.log(`%cROUND : ${GAME_STATS.answered}`, 'color: magenta; font-size 20px;')
 }
 
 // check if question was correct or incorrect   have to do before incrementing
@@ -487,7 +490,7 @@ const clearStyles = (mode) => {
     if(mode === 'hard' || mode === 'arcade' || mode === 'speed'){
         // add important class back
         gpColor.classList.add(GP_COLOR_CLASS)
-       console.log(gpColor)
+    //    console.log(gpColor)
     
        for(let i = 0; i < gpButtons.length; i++){
         // clear
@@ -504,7 +507,7 @@ const clearStyles = (mode) => {
             button.classList.add('choice')
         })
     }
-   console.log(gpButtons)
+//    console.log(gpButtons)
 }
 
 // check for end
