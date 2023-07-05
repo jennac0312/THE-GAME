@@ -193,7 +193,7 @@ const setGameStats = (mode) => {
     console.log(GAME_STATS)
 
     if(mode === 'arcade' || mode === 'speed'){
-        GAME_STATS.totalQuestions = 100
+        GAME_STATS.totalQuestions = 500
     }
     if(mode === 'speed'){
         GAME_STATS.timer = startCountdown()
