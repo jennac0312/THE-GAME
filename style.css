@@ -200,9 +200,8 @@ p.bottom{
     opacity: 1;
 }
 
-.which .easy:hover, .which .hard:hover{
+.hardDir:hover, .easyDir:hover{
     cursor: pointer;
-    /* color: grey; */
 }
 
 .directionsScreen .content .which .easyDir {
@@ -212,7 +211,6 @@ p.bottom{
 .hardDir{
     color: grey
 }
-
 .sampleGame{
     /* border: 1px solid lime; */
     width: 80%;

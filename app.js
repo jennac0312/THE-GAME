@@ -572,13 +572,9 @@ const fixModes = (mode) => {
     if(mode === 'speed'){
         //speed mode changes
                 /// end after 60 seconds pass
-
         GAME_STATS.totalQuestions = GAME_STATS.answered
         arcadeRound.innerHTML = (GAME_STATS.answered)
-
         // cant think of what ending screen should say
-
-
     }
 
 }
