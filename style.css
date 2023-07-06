@@ -195,9 +195,27 @@ p.bottom{
     padding-bottom: 5px;
 }
 
+.directionsScreen .which {
+    color: white;
+    opacity: 1;
+}
+
+.which .easy:hover, .which .hard:hover{
+    cursor: pointer;
+    /* color: grey; */
+}
+
+.directionsScreen .content .which .easyDir {
+    color: white;
+}
+
+.hardDir{
+    color: grey
+}
+
 .sampleGame{
     /* border: 1px solid lime; */
-    /* width: 100%; */
+    width: 80%;
     background-color: rgba(255, 255, 255, .2);
     display: flex;
     flex-direction: column;
@@ -236,11 +254,21 @@ p.bottom{
     opacity: 1;
     font-size: 1.1em;
 }
-.pointer{
+.hardModeDirections .pointer{
     transform: rotateZ(320deg);
     height: 28px;
-    margin-top: -300px;
+    margin-top: -100px;
     margin-left: 98px;
+    z-index: 2;
+    position: absolute;
+}
+/* ----------- easy mode directions ---------- */
+
+.easyModeDirections .pointer{
+    transform: rotateZ(320deg);
+    height: 28px;
+    margin-top: -200px;
+    margin-left: -36px;
     z-index: 2;
     position: absolute;
 }

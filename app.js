@@ -50,9 +50,17 @@ const scoreLine = document.querySelector('.scoreLine')
 const arcadeLine = document.querySelector('.arcadeLine')
 const arcadeRound = document.querySelector('.arcadeRound')
 
+// easy vs hard mode directions
+const easyDirections = document.querySelector('.easyModeDirections')
+const hardDirections = document.querySelector('.hardModeDirections')
+const easyDirButton = document.querySelector('.easyDir')
+const hardDirButton = document.querySelector('.hardDir')
+
 // secret quit button
 const quitter = document.querySelector('.quitter')
 const quitPage = document.querySelector('.quitterScreen')
+
+
 
 quitter.addEventListener('click', () => {
     hideAllScreensExcept(quitPage)
@@ -171,6 +179,30 @@ buttons.forEach((button) => {
     })
 })
 
+
+// switch directions
+hardDirButton.addEventListener('click', () => {
+    console.log('hard button clicked')
+    // hide easy show hard
+    easyDirections.classList.add('hidden')
+    hardDirections.classList.remove('hidden')
+
+    // color easy to show its clicked
+    easyDirButton.style.color = 'grey'
+    hardDirButton.style.color = 'white'
+})
+
+easyDirButton.addEventListener('click', () => {
+    // need to be white to begin with
+    console.log('easy button clicked')
+    // hide hard show easy
+    easyDirections.classList.remove('hidden')
+    hardDirections.classList.add('hidden')
+
+    // color easy to show its clicked
+    easyDirButton.style.color = 'white'
+    hardDirButton.style.color = 'grey'
+})
 
 // 10 seconds after page load... make title flash again
 setTimeout(() => {

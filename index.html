@@ -15,7 +15,7 @@
 <body>
     
     <!-- landing screen (home) -->
-    <div class="landingScreen setUpScreen ">
+    <div class="landingScreen setUpScreen hidden">
         <div class="content">
             <h2 class="">PRESENTING</h2>
             <h1 class="title">
@@ -47,7 +47,7 @@
 
     <!-- directions screen -->
     <!-- in progress -->
-    <div class="directionsScreen setUpScreen hidden">
+    <div class="directionsScreen setUpScreen ">
         <h1>DIRECTIONS</h1>
         <div class="content">
             <section class="text"> <p>a</p>
@@ -64,16 +64,36 @@
                 <p class="bottom">brain teaser</p>
             </section>
             <h3>HOW IT'S PLAYED:</h3>
+            <p class="which"><span class="easyDir" style="color: grey;">easy</span> | <span class="hardDir">hard</span></p>
             <div class="sampleGame">
                 <h5 style="color: yellow">RED</h5>
-                <div class="options">
-                    <div style="color:black; background-color: yellow; font-weight: bold;">yellow</div>
-                    <div style="color:black; background-color: orange; font-weight: bold;;">orange</div>
-                    <div style="color:black; background-color: green; font-weight: bold;;">green</div>
-                    <div style="color:black; background-color: red; font-weight: bold;;">red</div>
+                <div class="hardModeDirections hidden">
+                    <div class="options">
+                        <div style="color:black; background-color: yellow; font-weight: bold;">yellow</div>
+                        <div style="color:black; background-color: orange; font-weight: bold;">orange</div>
+                        <div style="color:black; background-color: green; font-weight: bold;">green</div>
+                        <div style="color:black; background-color: red; font-weight: bold;">red</div>
+                    </div>
+                    <p><span style="color: yellow">RED</span> is colored in <span style="color: yellow;">yellow</span>, but don't be fooled</p>
+                    <p>The answer is <span style="color: red;">red</span>&nbsp!</p>
+
+                    <!-- pointer -->
+                    <img src="https://www.freeiconspng.com/thumbs/cursor-png/original-file---svg-file-nominally-550--400-pixels-file-size-3--23.png" alt="" class="pointer">
                 </div>
-                <p><span style="color: yellow">RED</span> is colored in <span style="color: yellow;">yellow</span>, but don't be fooled</p>
-                <p>The answer is <span style="color: red;">red</span>&nbsp!</p>
+
+                <div class="easyModeDirections">
+                    <div class="options">
+                        <div style="color:black; background-color: white; font-weight: bold;">yellow</div>
+                        <div style="color:black; background-color: white; font-weight: bold;">orange</div>
+                        <div style="color:black; background-color: white; font-weight: bold;">green</div>
+                        <div style="color:black; background-color: white; font-weight: bold;">red</div>
+                    </div>
+                    <p>Though the word spells&nbsp;<span style="color: yellow">RED</span>, it's color is <span style="color: yellow;">yellow</span>.</p>
+                    <p>Therefore, the answer is <span>yellow</span>!</p> 
+
+                    <!-- pointer -->
+                    <img src="https://www.freeiconspng.com/thumbs/cursor-png/original-file---svg-file-nominally-550--400-pixels-file-size-3--23.png" alt="" class="pointer">
+                </div>
             </div>
         </div>
         
@@ -82,7 +102,6 @@
             <a href="https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds#:~:text=Speed%20of%20Processing%20Theory%3A%20Simply,than%20we%20can%20process%20colors." target="_blank"><button class="science">READ THE SCIENCE</button></a>
         </div>
         <span class="tidbit">*read more about the Stroop Effect here*</span>
-        <img src="https://www.freeiconspng.com/thumbs/cursor-png/original-file---svg-file-nominally-550--400-pixels-file-size-3--23.png" alt="" class="pointer">
     </div>
 
     <!-- mode screen -->
