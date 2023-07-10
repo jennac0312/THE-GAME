@@ -27,6 +27,6 @@ Instant feedback after each question with a green or red flash.
 2. Better UI ...
 
 ### Resources
-Stroop Effect : https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds
-TikTok : Color Test filter
+1. Stroop Effect : https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds
+2. TikTok : Color Test filter
 
