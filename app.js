@@ -182,7 +182,7 @@ buttons.forEach((button) => {
 
 // switch directions
 hardDirButton.addEventListener('click', () => {
-    console.log('hard button clicked')
+    console.log('hard mode directions clicked')
     // hide easy show hard
     easyDirections.classList.add('hidden')
     hardDirections.classList.remove('hidden')
@@ -194,7 +194,7 @@ hardDirButton.addEventListener('click', () => {
 
 easyDirButton.addEventListener('click', () => {
     // need to be white to begin with
-    console.log('easy button clicked')
+    console.log('easy mode directions clicked')
     // hide hard show easy
     easyDirections.classList.remove('hidden')
     hardDirections.classList.add('hidden')
@@ -604,10 +604,11 @@ const setStatus = () => {
 // set accuracy stat
 const setAccuracy = () => {
     let accuracy
-    if(GAME_STATS.totalQuestions === GAME_STATS.correct){
-        accuracy = 100
-    } else if(GAME_STATS.answered > 0){
-        accuracy = ( GAME_STATS.correct / GAME_STATS.totalQuestions )
+    // if(GAME_STATS.totalQuestions === GAME_STATS.correct){
+    //     accuracy = 100
+    // } 
+    if(GAME_STATS.answered > 0){
+        accuracy = ( GAME_STATS.correct / GAME_STATS.answered )
         // GAME_STATS.accuracy = accuracy.toFixed(2) * 100
         accuracy = (accuracy* 100).toFixed(0)
     } else {
@@ -628,7 +629,7 @@ const showStats = () => {
     }
     esAccuracy.innerHTML = GAME_STATS.accuracy
     esMode.innerHTML = GAME_STATS.mode
-    esQuestions.innerHTML = GAME_STATS.answered //changed bc 1 off for arcade mode
+    esQuestions.innerHTML = GAME_STATS.answered // changed bc 1 off for arcade mode
     esCorrect.innerHTML = GAME_STATS.correct
     esIncorrect.innerHTML = GAME_STATS.incorrect
 }
