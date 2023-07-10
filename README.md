@@ -23,8 +23,9 @@ Use of local storage to track game history.
 Instant feedback after each question with a green or red flash.
 
 ### Future Improvements
-1. Fix limitiations of Speed Mode and Arcade Mode. Currently, both modes are hard coded to only last 500 rounds. 
-2. Better UI ...
+1. Order local storage
+2. Fix limitiations of Speed Mode and Arcade Mode. Currently, both modes are hard coded to only last 500 rounds. 
+3. Better UI ...
 
 ### Resources
 1. Stroop Effect : https://lesley.edu/article/what-the-stroop-effect-reveals-about-our-minds
