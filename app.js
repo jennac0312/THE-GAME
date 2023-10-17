@@ -71,7 +71,7 @@ quitter.addEventListener('click', () => {
 })
 
 // important lol dont delete. lesson learned
-let numberOfQuestions = 20
+let numberOfQuestions = 5
 
 // track game stats
 const GAME_STATS = {
@@ -224,7 +224,7 @@ const setGameStats = (mode) => {
     GAME_STATS.mode = mode
     GAME_STATS.start = true
     GAME_STATS.timer = 'no timer'
-    GAME_STATS.totalQuestions = 10
+    GAME_STATS.totalQuestions = 5
     console.log(GAME_STATS)
 
     if(mode === 'arcade' || mode === 'speed'){
@@ -294,7 +294,7 @@ const startGame = (mode) => {
 }
 
 // 60 second timer
-let secs = 60
+let secs = 10
 const startCountdown = () => {
     intervalID = setInterval(tick, 1000)
 }

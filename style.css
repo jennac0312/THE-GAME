@@ -5,7 +5,7 @@ body{
     font-family: 'Agdasima';
     width: 390px;
     height: 844px;
-    /* background-color: black; */
+    background-color: rgba(0, 0, 0, 0.897);
     /* border: 2px solid yellow; */
     color: moccasin;
     text-align: center;
@@ -28,6 +28,7 @@ body > *{
 /* landing screen */
 .landingScreen{
     /* border: 2px solid red; */
+    border-radius: 10px;
     width: 390px;
     height: 844px;
     margin: auto;
